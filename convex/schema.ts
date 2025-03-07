@@ -1,0 +1,98 @@
+import { authTables } from "@convex-dev/auth/server";
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+const schema = defineSchema({
+  ...authTables,
+  users: defineTable({
+    name: v.optional(v.string()),
+    image: v.optional(v.string()),
+    email: v.optional(v.string()),
+    emailVerificationTime: v.optional(v.float64()),
+    phone: v.optional(v.string()),
+    phoneVerificationTime: v.optional(v.float64()),
+    isAnonymous: v.optional(v.boolean()),
+    role: v.optional(v.union(v.literal("user"), v.literal("admin"))),
+    isAutoSetupDone: v.optional(v.boolean()),
+  })
+    .index("email", ["email"])
+    .index("phone", ["phone"]),
+  matches: defineTable({
+    datetimeUtc: v.string(),
+    homeTeamId: v.string(),
+    isLeague: v.boolean(),
+    matchNumber: v.float64(),
+    oppTeamId: v.string(),
+    venue: v.string(),
+    hasPlayed: v.optional(v.boolean()),
+    hasResult: v.optional(v.boolean()),
+    winner: v.optional(v.id("teams")),
+    hasSubmitted: v.optional(v.boolean()),
+    submittedBy: v.optional(v.id("users")),
+    submittedAt: v.optional(v.string()),
+    canSubmit: v.boolean(),
+  }).index("by_datetime", ["datetimeUtc"]),
+  players: defineTable({
+    isIndian: v.boolean(),
+    name: v.string(),
+    profileImage: v.string(),
+    role: v.string(),
+    teamId: v.id("teams"),
+  }).index("by_team", ["teamId"]),
+  teams: defineTable({
+    image: v.string(),
+    shortForm: v.string(),
+    teamName: v.string(),
+  }),
+  userTeamsSetup: defineTable({
+    userId: v.id("users"),
+    teams: v.array(v.id("teams")),
+  }).index("user_setup", ["userId"]),
+  userPlayersSetup: defineTable({
+    userId: v.id("users"),
+    teamId: v.id("teams"),
+    players: v.array(v.id("players")),
+  }).index("user_team_players", ["userId", "teamId"]),
+  fantasyUsers: defineTable({
+    userId: v.id("users"),
+    matchId: v.id("matches"),
+    selectedTeam: v.id("teams"),
+    selectedPlayers: v.array(v.id("players")),
+    captain: v.id("players"),
+    byUser: v.boolean(),
+  })
+    .index("userId_matchId", ["userId", "matchId"])
+    .index("matchId", ["matchId"])
+    .index("userId", ["userId"]),
+  matchPlayersData: defineTable({
+    matchId: v.id("matches"),
+    playerId: v.id("players"),
+    isPlayed: v.boolean(),
+    runs: v.number(),
+    wickets: v.number(),
+    catches: v.number(),
+    stumpings: v.number(),
+    runouts: v.number(),
+    playerPoints: v.number(),
+  })
+    .index("matchId", ["matchId"])
+    .index("player", ["playerId"])
+    .index("matchId_player", ["matchId", "playerId"]),
+  matchTeamData: defineTable({
+    matchId: v.id("matches"),
+    teamId: v.id("teams"),
+    teamPoints: v.number(),
+  })
+    .index("matchId", ["matchId"])
+    .index("matchId_teamId", ["matchId", "teamId"]),
+  userPoints: defineTable({
+    userId: v.id("users"),
+    matchId: v.id("matches"),
+    points: v.number(),
+  })
+    .index("userId", ["userId"])
+    .index("matchId", ["matchId"])
+    .index("userId_matchId", ["userId", "matchId"]),
+});
+
+export default schema;

@@ -38,7 +38,13 @@ export const UpcomingMatchForHome = () => {
 
       <div className="flex flex-row justify-center gap-2">
         {upcomingMatch.map((match) => (
-          <UpcomingMatchCard key={match._id} match={match} />
+          <Link
+            key={match._id}
+            href={`/matches/${match._id}`}
+            className="w-full flex justify-center"
+          >
+            <UpcomingMatchCard key={match._id} match={match} />
+          </Link>
         ))}
       </div>
     </section>

@@ -8,7 +8,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
@@ -220,7 +219,6 @@ const PlayerDataCard: React.FC<{
 
         {expanded && (
           <div className="mt-4 space-y-4">
-            {/* Mobile-optimized stat entry */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {["runs", "wickets", "catches", "stumpings", "runouts"].map(
                 (field) => (
@@ -700,9 +698,8 @@ export default function CricketScorecard() {
             Cricket Match Scorecard
           </h1>
           <p className="text-muted-foreground">
-            {matchDetail.homeTeam.name} vs {matchDetail.awayTeam.name} |{" "}
-            {matchDetail.venue} |{" "}
-            {new Date(matchDetail.date).toLocaleDateString()}
+            {matchDetail.homeTeam.name} vs {matchDetail.awayTeam.name} |
+            {matchDetail.venue} |
           </p>
         </div>
 
@@ -874,45 +871,43 @@ export default function CricketScorecard() {
               )}
             </div>
 
-            <ScrollArea className="h-[calc(100vh-300px)]">
-              <div className="space-y-2">
-                {getFilteredPlayers(
-                  team === "homeTeam" ? homeTeamPlayers : awayTeamPlayers
-                ).map((player) => (
-                  <div key={player._id} className="flex items-center">
-                    {bulkEditMode && (
-                      <Checkbox
-                        checked={!!selectedPlayers[player._id]}
-                        onCheckedChange={(checked) => {
-                          setSelectedPlayers({
-                            ...selectedPlayers,
-                            [player._id]: !!checked,
-                          });
-                        }}
-                        className="mr-2"
-                      />
-                    )}
+            <div className="space-y-2">
+              {getFilteredPlayers(
+                team === "homeTeam" ? homeTeamPlayers : awayTeamPlayers
+              ).map((player) => (
+                <div key={player._id} className="flex items-center">
+                  {bulkEditMode && (
+                    <Checkbox
+                      checked={!!selectedPlayers[player._id]}
+                      onCheckedChange={(checked) => {
+                        setSelectedPlayers({
+                          ...selectedPlayers,
+                          [player._id]: !!checked,
+                        });
+                      }}
+                      className="mr-2"
+                    />
+                  )}
 
-                    <div className="flex-1">
-                      <PlayerDataCard
-                        player={player}
-                        onPlayerChange={(playerId, field, value) =>
-                          handlePlayerChange(
-                            team as "homeTeam" | "awayTeam",
-                            playerId,
-                            field,
-                            value
-                          )
-                        }
-                        onSubmit={handleSubmitPlayer}
-                        expanded={!!expandedPlayers[player._id]}
-                        onToggle={() => togglePlayerExpansion(player._id)}
-                      />
-                    </div>
+                  <div className="flex-1">
+                    <PlayerDataCard
+                      player={player}
+                      onPlayerChange={(playerId, field, value) =>
+                        handlePlayerChange(
+                          team as "homeTeam" | "awayTeam",
+                          playerId,
+                          field,
+                          value
+                        )
+                      }
+                      onSubmit={handleSubmitPlayer}
+                      expanded={!!expandedPlayers[player._id]}
+                      onToggle={() => togglePlayerExpansion(player._id)}
+                    />
                   </div>
-                ))}
-              </div>
-            </ScrollArea>
+                </div>
+              ))}
+            </div>
 
             <div className="flex items-center justify-center mt-4">
               <Button

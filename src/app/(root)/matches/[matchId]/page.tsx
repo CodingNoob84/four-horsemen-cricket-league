@@ -1,5 +1,6 @@
 "use client";
 
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { LoadingScreen } from "@/components/common/loading-screen";
 import { AllPlayers } from "@/components/matches/allplayers";
 import { MatchDetailCard } from "@/components/matches/matchdetail-card";
@@ -48,6 +49,11 @@ export default function MatchDetailsPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container px-4 mx-auto">
+        <Breadcrumbs
+          title="Player Selection"
+          isAdmin={false}
+          backLink={"/matches"}
+        />
         {match && (
           <>
             {/* Match Details */}

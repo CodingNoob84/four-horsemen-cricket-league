@@ -1,8 +1,8 @@
-import { Avatar } from "@radix-ui/react-avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Player } from "@/types";
+import { Avatar } from "@radix-ui/react-avatar";
 import { toast } from "sonner";
+import { AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export const AllPlayers = ({
   homeTeamName,
@@ -40,7 +40,7 @@ export const AllPlayers = ({
   return (
     <div className="flex flex-row">
       {/* Team 1 Players */}
-      <Card className=" ">
+      <Card className="w-full ">
         <CardHeader className="py-3">
           <CardTitle className="text-sm">{homeTeamName}</CardTitle>
         </CardHeader>
@@ -72,7 +72,7 @@ export const AllPlayers = ({
       </Card>
 
       {/* Team 2 Players */}
-      <Card className="">
+      <Card className="w-full">
         <CardHeader className="py-3">
           <CardTitle className="text-sm">{awayTeamName}</CardTitle>
         </CardHeader>

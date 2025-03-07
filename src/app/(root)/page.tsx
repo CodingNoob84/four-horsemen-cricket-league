@@ -2,8 +2,10 @@
 import { LeaderBoard } from "@/components/home/leaderboard";
 import { UpcomingMatchForHome } from "@/components/home/upcoming-match";
 import UserScoreCard from "@/components/home/user-points-card";
+import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/convex-hooks";
 import { Loader } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -29,6 +31,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      <div className="flex justify-center p-2">
+        <Button asChild>
+          <Link href="/what-is-4horsemen">Read about 4HCL</Link>
+        </Button>
+      </div>
+
       <UserScoreCard />
       <UpcomingMatchForHome />
       <LeaderBoard />

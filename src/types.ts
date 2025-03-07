@@ -77,3 +77,10 @@ export interface PlayerData extends Player {
   runouts: number;
   playerPoints: number;
 }
+
+export interface User {
+  userId: string;
+  name: string;
+  email: string;
+  image: string;
+}

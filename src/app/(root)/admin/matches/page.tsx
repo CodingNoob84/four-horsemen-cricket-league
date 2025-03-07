@@ -1,8 +1,7 @@
 "use client";
 
-import { PastMatches, UpcomingMatches } from "@/components/admin/admin-matches";
+import { PastMatches } from "@/components/admin/admin-matches";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Shield } from "lucide-react";
 
 export default function AdminMatchesPage() {
@@ -17,7 +16,10 @@ export default function AdminMatchesPage() {
           </Badge>
         </div>
 
-        <Tabs defaultValue="upcoming" className="mb-6">
+        <div>
+          <PastMatches />
+        </div>
+        {/* <Tabs defaultValue="upcoming" className="mb-6">
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="upcoming">Upcoming Matches</TabsTrigger>
             <TabsTrigger value="past">Completed Matches</TabsTrigger>
@@ -34,7 +36,7 @@ export default function AdminMatchesPage() {
               <PastMatches />
             </div>
           </TabsContent>
-        </Tabs>
+        </Tabs> */}
       </div>
     </div>
   );

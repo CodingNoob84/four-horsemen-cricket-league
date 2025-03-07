@@ -1,7 +1,7 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
-import { internalMutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 
 export const updateUserPointsAfterMatch = internalMutation({
   args: { matchId: v.id("matches") },
@@ -12,50 +12,73 @@ export const updateUserPointsAfterMatch = internalMutation({
       throw new Error("Match not found or winner not determined");
     }
 
+    const allMatchTeamData = await ctx.db
+      .query("matchTeamData")
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
+      .collect();
+
     // Fetch all player points for this match
     const playerPointsData = await ctx.db
       .query("matchPlayersData")
-      .filter((q) => q.eq(q.field("matchId"), matchId))
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
 
-    // Create a map for quick lookup of player points
-    const playerPointsMap: Record<
-      Id<"players">,
-      number
-    > = playerPointsData.reduce(
-      (acc, player) => {
-        acc[player.playerId] = player.playerPoints;
-        return acc;
-      },
-      {} as Record<Id<"players">, number>
+    // Convert to a Map for quick lookups
+    const playerPointsMap = new Map<Id<"players">, number>(
+      playerPointsData.map((player) => [player.playerId, player.playerPoints])
     );
 
     // Fetch all fantasy teams for this match
     const fantasyTeams = await ctx.db
       .query("fantasyUsers")
-      .filter((q) => q.eq(q.field("matchId"), matchId))
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
+
+    // Store batch updates
+    const userPointsUpdates = [];
 
     for (const fantasyTeam of fantasyTeams) {
       let totalPoints = 0;
 
-      // Check if the selected fantasy team won
-      if (fantasyTeam.selectedTeam === match.winner) {
-        totalPoints += 10; // Add 10 points for selecting the winning team
-      }
+      const teamPoints =
+        allMatchTeamData.find((t) => t.teamId === fantasyTeam.selectedTeam)
+          ?.teamPoints || 0;
 
       // Sum points of selected players
       for (const playerId of fantasyTeam.selectedPlayers) {
-        totalPoints += playerPointsMap[playerId] || 0;
+        totalPoints += playerPointsMap.get(playerId) || 0;
       }
 
-      // Update or insert userPoints for this match
-      await ctx.db.insert("userPoints", {
-        userId: fantasyTeam.userId,
-        matchId,
-        points: totalPoints,
-      });
+      // Check if a record already exists
+      const existingUserPoints = await ctx.db
+        .query("userPoints")
+        .withIndex("userId_matchId", (q) =>
+          q.eq("userId", fantasyTeam.userId).eq("matchId", matchId)
+        )
+        .first();
+
+      if (existingUserPoints) {
+        // Update existing record
+        userPointsUpdates.push(
+          ctx.db.patch(existingUserPoints._id, { points: totalPoints })
+        );
+      } else {
+        // Insert new record
+        userPointsUpdates.push(
+          ctx.db.insert("userPoints", {
+            userId: fantasyTeam.userId,
+            matchId,
+            points: totalPoints,
+          })
+        );
+      }
     }
+
+    // Execute all writes in parallel (batch update)
+    await Promise.all(userPointsUpdates);
+
+    // Set `hasSubmitted` flag in a single update
+    await ctx.db.patch(matchId, { hasSubmitted: true });
 
     return { success: true, message: "User points updated successfully" };
   },
@@ -136,6 +159,7 @@ export const fetchPastMatchesUserPoints = query({
         if (!fantasySelection) {
           return {
             matchId: match._id,
+            datetimeUtc: match.datetimeUtc,
             homeTeamName: homeTeam?.shortForm || "Unknown",
             awayTeamName: awayTeam?.shortForm || "Unknown",
             selectedTeamName: null,
@@ -176,6 +200,7 @@ export const fetchPastMatchesUserPoints = query({
 
         return {
           matchId: match._id,
+          datetimeUtc: match.datetimeUtc,
           homeTeamName: homeTeam?.shortForm || "Unknown",
           awayTeamName: awayTeam?.shortForm || "Unknown",
           selectedTeamName:
@@ -202,20 +227,29 @@ export const fetchPastMatchesUserPoints = query({
   },
 });
 
-export const updateUserPoints = internalMutation({
+export const updateUserPointsI = internalMutation({
   args: { matchId: v.id("matches") },
   handler: async (ctx, { matchId }) => {
-    // Fetch all matchTeamData
+    // Fetch all matchTeamData (Convert to Map for quick lookups)
     const allMatchTeamData = await ctx.db
       .query("matchTeamData")
       .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
+    const teamPointsMap = new Map(
+      allMatchTeamData.map((team) => [team.teamId, team.teamPoints || 0])
+    );
 
-    // Fetch all PlayerData
+    // Fetch all PlayerData (Convert to Map for quick lookups)
     const allPlayersData = await ctx.db
       .query("matchPlayersData")
       .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
+    const playerPointsMap = new Map(
+      allPlayersData.map((player) => [
+        player.playerId,
+        player.playerPoints || 0,
+      ])
+    );
 
     // Fetch all fantasyUsers
     const fantasyUsers = await ctx.db
@@ -223,33 +257,29 @@ export const updateUserPoints = internalMutation({
       .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
 
-    // Process each user's fantasy team
+    // Prepare bulk updates
+    const userPointsUpdates = [];
+
     for (const user of fantasyUsers) {
       const selectedTeam = user.selectedTeam;
       const selectedPlayers = user.selectedPlayers;
       const captain = user.captain;
 
-      // Fetch team points
-      const teamPoints =
-        allMatchTeamData.find((t) => t.teamId === selectedTeam)?.teamPoints ||
-        0;
+      // Get team points from Map
+      const teamPoints = teamPointsMap.get(selectedTeam) || 0;
 
-      // Fetch selected player points
+      // Calculate total player points
       let totalPlayerPoints = 0;
-
       for (const playerId of selectedPlayers) {
-        const playerData = allPlayersData.find((p) => p.playerId === playerId);
-        const playerPoints = playerData?.playerPoints || 0;
-
-        // Captain gets **2x** points
+        const playerPoints = playerPointsMap.get(playerId) || 0;
         totalPlayerPoints +=
           playerId === captain ? playerPoints * 2 : playerPoints;
       }
 
-      // Calculate total user points
+      // Total user points
       const totalPoints = teamPoints + totalPlayerPoints;
 
-      // Check if entry already exists in `userPoints`
+      // Check if userPoints already exist
       const existingUserPoints = await ctx.db
         .query("userPoints")
         .withIndex("userId_matchId", (q) =>
@@ -258,18 +288,111 @@ export const updateUserPoints = internalMutation({
         .first();
 
       if (existingUserPoints) {
-        // Update existing record
-        await ctx.db.patch(existingUserPoints._id, {
-          points: totalPoints,
-        });
+        userPointsUpdates.push(
+          ctx.db.patch(existingUserPoints._id, { points: totalPoints })
+        );
       } else {
-        // Insert new record
-        await ctx.db.insert("userPoints", {
-          userId: user.userId,
-          matchId,
-          points: totalPoints,
-        });
+        userPointsUpdates.push(
+          ctx.db.insert("userPoints", {
+            userId: user.userId,
+            matchId,
+            points: totalPoints,
+          })
+        );
       }
     }
+
+    // Perform all database operations in parallel
+    await Promise.all(userPointsUpdates);
+
+    // Set hasSubmitted flag for the match **only once**
+    await ctx.db.patch(matchId, { hasSubmitted: true });
+
+    return { success: true, message: "User points updated successfully" };
+  },
+});
+
+export const updateUserPoints = mutation({
+  args: { matchId: v.id("matches") },
+  handler: async (ctx, { matchId }) => {
+    // Fetch all matchTeamData (Convert to Map for quick lookups)
+    const allMatchTeamData = await ctx.db
+      .query("matchTeamData")
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
+      .collect();
+    const teamPointsMap = new Map(
+      allMatchTeamData.map((team) => [team.teamId, team.teamPoints || 0])
+    );
+
+    // Fetch all PlayerData (Convert to Map for quick lookups)
+    const allPlayersData = await ctx.db
+      .query("matchPlayersData")
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
+      .collect();
+    const playerPointsMap = new Map(
+      allPlayersData.map((player) => [
+        player.playerId,
+        player.playerPoints || 0,
+      ])
+    );
+
+    // Fetch all fantasyUsers
+    const fantasyUsers = await ctx.db
+      .query("fantasyUsers")
+      .withIndex("matchId", (q) => q.eq("matchId", matchId))
+      .collect();
+
+    // Prepare bulk updates
+    const userPointsUpdates = [];
+
+    for (const user of fantasyUsers) {
+      const selectedTeam = user.selectedTeam;
+      const selectedPlayers = user.selectedPlayers;
+      const captain = user.captain;
+
+      // Get team points from Map
+      const teamPoints = teamPointsMap.get(selectedTeam) || 0;
+
+      // Calculate total player points
+      let totalPlayerPoints = 0;
+      for (const playerId of selectedPlayers) {
+        const playerPoints = playerPointsMap.get(playerId) || 0;
+        totalPlayerPoints +=
+          playerId === captain ? playerPoints * 2 : playerPoints;
+      }
+
+      // Total user points
+      const totalPoints = teamPoints + totalPlayerPoints;
+
+      // Check if userPoints already exist
+      const existingUserPoints = await ctx.db
+        .query("userPoints")
+        .withIndex("userId_matchId", (q) =>
+          q.eq("userId", user.userId).eq("matchId", matchId)
+        )
+        .first();
+
+      if (existingUserPoints) {
+        userPointsUpdates.push(
+          ctx.db.patch(existingUserPoints._id, { points: totalPoints })
+        );
+      } else {
+        userPointsUpdates.push(
+          ctx.db.insert("userPoints", {
+            userId: user.userId,
+            matchId,
+            points: totalPoints,
+          })
+        );
+      }
+    }
+
+    // Perform all database operations in parallel
+    await Promise.all(userPointsUpdates);
+
+    // Set hasSubmitted flag for the match **only once**
+    await ctx.db.patch(matchId, { hasSubmitted: true });
+
+    return { success: true, message: "User points updated successfully" };
   },
 });

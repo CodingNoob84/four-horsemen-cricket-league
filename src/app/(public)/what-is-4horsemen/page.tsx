@@ -1,9 +1,11 @@
 import FourHorsemenBlog from "@/components/common/blog";
+import { Footer } from "@/components/layout/footer";
 
 export default function BlogPage() {
   return (
-    <div>
+    <div className="flex flex-col">
       <FourHorsemenBlog />
+      <Footer />
     </div>
   );
 }

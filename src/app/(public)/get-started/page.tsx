@@ -1,4 +1,5 @@
 import { SignInButton } from "@/components/auth/auth-buttons";
+import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
 
 const GetStartedPage = () => {
@@ -58,6 +59,7 @@ const GetStartedPage = () => {
           <SignInButton />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

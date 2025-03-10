@@ -33,13 +33,13 @@ export const SelectionCard = ({
   canSubmit: boolean;
 }) => {
   const { matchId } = useParams();
-  //const hasMatchStarted=
-  // convert datetime into localdate compare local time
   const [selectedTeam, setSelectedTeam] = useState<string | null>(
     selectedTeamId
   );
   const [captainId, setCaptainId] = useState<string | null>(selectedCaptainId);
   const [isLoading, setIsLoading] = useState(false);
+  const [captainIconFocus, setCaptainIconFocus] = useState(false);
+  const [teamButtonFocus, setTeamButtonFocus] = useState(false);
   const submitFantasyData = useMutation(api.matches.submitFantasyData);
 
   const handleRemovePlayer = (playerId: Id<"players">) => {
@@ -51,6 +51,12 @@ export const SelectionCard = ({
 
   const handleSetCaptain = (playerId: Id<"players">) => {
     setCaptainId(playerId === captainId ? null : playerId);
+    if (playerId !== captainId) {
+      toast.info("Captain selected", {
+        description: "You have set a captain for your team.",
+        duration: 2000,
+      });
+    }
   };
 
   const handleSubmit = async () => {
@@ -58,19 +64,25 @@ export const SelectionCard = ({
       toast.error("Submission failed", {
         description: "Please select 4 players",
       });
-
       return;
     }
 
     if (!captainId) {
+      setCaptainIconFocus(true);
+      setTimeout(() => {
+        setCaptainIconFocus(false);
+      }, 2000);
       toast.error("Submission failed", {
-        description: "Please select a captain",
+        description: "Please select anyone as captain, click crown icon",
       });
-
       return;
     }
 
     if (!selectedTeam) {
+      setTeamButtonFocus(true);
+      setTimeout(() => {
+        setTeamButtonFocus(false);
+      }, 2000);
       toast.error("Submission failed", {
         description: "Please select a team",
       });
@@ -92,7 +104,7 @@ export const SelectionCard = ({
       console.log("Error submitting", error);
       toast.error("Error submitting team");
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
   return (
@@ -105,14 +117,24 @@ export const SelectionCard = ({
       <CardContent className="flex flex-col gap-2">
         <div className="flex flex-row gap-5 justify-between items-center">
           <div
-            onClick={() => setSelectedTeam(homeTeamId)}
-            className={`w-full flex items-center justify-center p-3 rounded-lg border ${selectedTeam === homeTeamId && "bg-green-200"}`}
+            onClick={() => {
+              setSelectedTeam(homeTeamId);
+              toast.info("Home team selected", {
+                description: "You have selected the home team.",
+              });
+            }}
+            className={`w-full flex items-center justify-center p-3 rounded-lg border ${selectedTeam === homeTeamId && "bg-green-200"} ${teamButtonFocus && "border-4 border-green-300"}`}
           >
             {homeTeamName}
           </div>
           <div
-            onClick={() => setSelectedTeam(awayTeamId)}
-            className={`w-full flex items-center justify-center p-3 rounded-lg border ${selectedTeam === awayTeamId && "bg-green-200"}`}
+            onClick={() => {
+              setSelectedTeam(awayTeamId);
+              toast.info("Away team selected", {
+                description: "You have selected the away team.",
+              });
+            }}
+            className={`w-full flex items-center justify-center p-3 rounded-lg border ${selectedTeam === awayTeamId && "bg-green-200"} ${teamButtonFocus && "border-4 border-green-300"}`}
           >
             {awayTeamName}
           </div>
@@ -129,7 +151,7 @@ export const SelectionCard = ({
                   captainId === player._id
                     ? "text-yellow-700 bg-yellow-100"
                     : "text-gray-400 hover:text-yellow-600 hover:bg-yellow-300"
-                }`}
+                } ${captainIconFocus && "bg-yellow-100"}`}
               >
                 <Crown className="w-5 h-5" />
               </button>
@@ -171,12 +193,7 @@ export const SelectionCard = ({
                 className="w-full mt-4"
                 size="lg"
                 onClick={handleSubmit}
-                disabled={
-                  isLoading ||
-                  selectedPlayers.length !== 4 ||
-                  !captainId ||
-                  !selectedTeam
-                }
+                disabled={isLoading}
               >
                 {isLoading ? "Submitting..." : "Submit Team"}
               </Button>

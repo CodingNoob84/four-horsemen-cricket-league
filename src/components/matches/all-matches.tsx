@@ -10,6 +10,7 @@ import { PastMatchCard, UpcomingMatchCard } from "./match-cards";
 export const AllMatches = () => {
   const upcomingMatches = useQuery(api.matches.upcomingMatchesByUser);
   const pastMatches = useQuery(api.matches.PastMatchesByUser);
+  console.log("past", pastMatches);
   const grpUpcomingMatches = upcomingMatches
     ? MatchesgrpByDate(upcomingMatches)
     : [];

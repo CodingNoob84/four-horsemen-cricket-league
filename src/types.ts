@@ -84,3 +84,27 @@ export interface User {
   email: string;
   image: string;
 }
+
+export interface Group {
+  groupId: Id<"groups">;
+  groupName: string;
+  groupCode: string;
+  isOwner: boolean;
+  pastRecentMatch: {
+    matchId: Id<"matches">;
+    matchNumber: number;
+    datetimeUtc: string;
+    venue: string;
+    homeTeam: Team;
+    awayTeam: Team;
+  };
+  members: {
+    userId: Id<"users">;
+    isUser: boolean;
+    name: string;
+    email: string;
+    image: string;
+    totalPoints: number;
+    matchPoints: number;
+  }[];
+}

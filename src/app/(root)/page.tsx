@@ -1,7 +1,9 @@
 "use client";
-import { LeaderBoard } from "@/components/home/leaderboard";
+import { GlobalLeaderBoard } from "@/components/home/global-leaderboard";
+import { MyGroups } from "@/components/home/my-groups";
+import { RecentMatch } from "@/components/home/recent-match";
 import { UpcomingMatchForHome } from "@/components/home/upcoming-match";
-import UserScoreCard from "@/components/home/user-points-card";
+import { UserCard } from "@/components/home/user-card";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/convex-hooks";
 import { Loader } from "lucide-react";
@@ -36,10 +38,12 @@ export default function Home() {
           <Link href="/what-is-4horsemen">Read about 4HCL</Link>
         </Button>
       </div>
+      <UserCard />
+      <RecentMatch />
 
-      <UserScoreCard />
       <UpcomingMatchForHome />
-      <LeaderBoard />
+      <MyGroups />
+      <GlobalLeaderBoard />
     </div>
   );
 }

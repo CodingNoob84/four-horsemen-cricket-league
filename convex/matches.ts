@@ -16,7 +16,7 @@ export const upcomingMatchesByUser = query({
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
     const now = new Date().toISOString();
-    console.log("now", now);
+    //console.log("now", now);
 
     // Fetch upcoming matches
     const matches = await ctx.db
@@ -93,7 +93,7 @@ export const upcomingMatchesForHome = query({
     }
 
     const now = new Date().toISOString();
-    console.log("Current Time:", now);
+    //console.log("Current Time:", now);
 
     // Fetch upcoming matches sorted by `datetimeUtc`
     const matches = await ctx.db
@@ -178,7 +178,7 @@ export const pastMatchesByUser = query({
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
     const now = new Date().toISOString();
-    console.log("now", now);
+    //console.log("now", now);
 
     // Fetch upcoming matches
     const matches = await ctx.db
@@ -240,6 +240,51 @@ export const pastMatchesByUser = query({
         shortForm: "",
       },
       submittedStatus: submittedMatchIds.has(match._id as Id<"matches">), // Check if matchId exists in submitted list
+    }));
+
+    return enrichedMatches;
+  },
+});
+
+export const pastMatchesSelect = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    const now = new Date().toISOString();
+
+    // Fetch past matches
+    const matches = await ctx.db
+      .query("matches")
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc")
+      .collect();
+
+    // If no past matches, return an empty array early
+    if (!matches.length) return [];
+
+    // Extract unique team IDs
+    const teamIds = new Set<Id<"teams">>();
+    matches.forEach((match) => {
+      teamIds.add(match.homeTeamId as Id<"teams">);
+      teamIds.add(match.oppTeamId as Id<"teams">);
+    });
+
+    // Fetch teams only for the required IDs
+    const teams = await ctx.db.query("teams").collect();
+
+    // Convert to lookup map
+    const teamMap = new Map<Id<"teams">, { shortForm: string }>(
+      teams.map((team) => [
+        team._id as Id<"teams">,
+        { shortForm: team.shortForm },
+      ])
+    );
+
+    // Construct enriched matches array
+    const enrichedMatches = matches.map((match) => ({
+      matchId: match._id,
+      match: `${teamMap.get(match.homeTeamId as Id<"teams">)?.shortForm || "Unknown"} vs ${teamMap.get(match.oppTeamId as Id<"teams">)?.shortForm || "Unknown"}`,
+      datetimeUtc: match.datetimeUtc,
     }));
 
     return enrichedMatches;
@@ -313,7 +358,7 @@ export const submitFantasyData = mutation({
     if (!userId) {
       throw new Error("User authentication required.");
     }
-    console.log("length", selectedPlayers.length);
+    //console.log("length", selectedPlayers.length);
     if (selectedPlayers.length != 4) {
       throw new Error("At least four players must be selected.");
     }
@@ -501,11 +546,13 @@ export const UpcomingMatches = query({
     const enrichedMatches = matches.map((match) => ({
       ...match,
       homeTeam: teamMap[match.homeTeamId as Id<"teams">] || {
+        _id: match.homeTeamId,
         teamName: "Unknown Team",
         image: "",
         shortForm: "",
       },
       awayTeam: teamMap[match.oppTeamId as Id<"teams">] || {
+        _id: match.oppTeamId,
         teamName: "Unknown Team",
         image: "",
         shortForm: "",
@@ -522,7 +569,8 @@ export const PastMatches = query({
     const now = new Date().toISOString();
     const matches = await ctx.db
       .query("matches")
-      .filter((q) => q.lt(q.field("datetimeUtc"), now))
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc")
       .collect();
 
     matches.sort(
@@ -569,15 +617,19 @@ export const PastMatches = query({
 export const PastMatchesByUser = query({
   args: {},
   handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx); // Get logged-in user ID
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User is not authenticated");
+    }
     const now = new Date().toISOString();
 
     // Fetch past matches
     const matches = await ctx.db
       .query("matches")
-      .filter((q) => q.lt(q.field("datetimeUtc"), now))
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc")
       .collect();
-
+    //console.log("matches", matches);
     // Sort by datetimeUtc in descending order (newest first)
     matches.sort(
       (a, b) =>
@@ -602,13 +654,22 @@ export const PastMatchesByUser = query({
       {} as Record<Id<"teams">, Team>
     );
 
-    // Fetch fantasy teams where the user has submitted data
+    // Fetch fantasy match points for the user
     const userPoints = await ctx.db
-      .query("userPoints")
-      .filter((q) => q.eq(q.field("userId"), userId))
-      .first();
+      .query("userMatchPoints")
+      .withIndex("userId", (q) => q.eq("userId", userId))
+      .collect();
 
-    // Map over matches to enrich with team details and submission status
+    // Convert userPoints to a map (matchId -> points)
+    const userPointsMap: Record<Id<"matches">, number> = userPoints.reduce(
+      (acc, entry) => {
+        acc[entry.matchId as Id<"matches">] = entry.points || 0;
+        return acc;
+      },
+      {} as Record<Id<"matches">, number>
+    );
+
+    // Map over matches to enrich with team details and user match points
     const enrichedMatches = matches.map((match) => ({
       ...match,
       homeTeam: teamMap[match.homeTeamId as Id<"teams">] || {
@@ -623,7 +684,7 @@ export const PastMatchesByUser = query({
         image: "",
         shortForm: "",
       },
-      matchPoints: userPoints?.points || 0,
+      matchPoints: userPointsMap[match._id] || 0, // Correctly mapped match points
     }));
 
     return enrichedMatches;

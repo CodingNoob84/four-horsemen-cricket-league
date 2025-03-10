@@ -11,6 +11,28 @@ export const currentUser = query({
   },
 });
 
+export const userwithTotalPoints= query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User not authenticated");
+    }
+
+    // Fetch user details
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+const totalPoints= await ctx.db.query("userTotalPoints").withIndex("userId",(q) =>
+  q.eq("userId", userId)).first();
+
+
+    return {...user,totalOverallPoints:totalPoints?.totalPoints} ;
+  },
+})
+
 export const getUserDetailsWithLastMatch = query({
   args: {},
   handler: async (ctx) => {
@@ -126,7 +148,7 @@ export const getUserDetailsWithLastMatch = query({
     // Fetch total overall points from userPoints table (sum of all matches)
     const totalOverallPoints = (
       await ctx.db
-        .query("userPoints")
+        .query("userMatchPoints")
         .withIndex("userId", (q) => q.eq("userId", userId))
         .collect()
     ).reduce((acc, entry) => acc + (entry.points || 0), 0);

@@ -263,19 +263,6 @@ export default function FourHorsemenBlog() {
             play—you strategize like a champion! 🏆🔥
           </p>
 
-          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">
-            ⏳ Why Points Might Take Time to Update
-          </h2>
-          <p className="text-gray-700 text-lg leading-relaxed mb-4">
-            Unlike big fantasy apps, we manually update player scores. That
-            means:
-          </p>
-          <ul className="list-disc pl-6 text-gray-700 text-lg space-y-2">
-            <li>⏳ Sometimes, points update instantly.</li>
-            <li>🛠️ Sometimes, it takes a while.</li>
-            <li>🐞 Found a bug? Report it, and we&apos;ll fix it!</li>
-          </ul>
-
           <h2 className="text-xl font-bold text-gray-900 mt-6 mb-2">
             ⏳ The Mystery of Delayed Points: Explained!
           </h2>

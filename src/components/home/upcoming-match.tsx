@@ -1,6 +1,6 @@
 import { formatLocalDate } from "@/lib/utils";
 import { useQuery } from "convex/react";
-import { ChevronRight, Loader } from "lucide-react";
+import { CalendarClock, ChevronRight, Loader } from "lucide-react";
 import Link from "next/link";
 import { api } from "../../../convex/_generated/api";
 import { UpcomingMatchCard } from "../matches/match-cards";
@@ -16,8 +16,9 @@ export const UpcomingMatchForHome = () => {
   }
   return (
     <section className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-gray-800 ml-2">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold mb-4 flex items-center">
+          <CalendarClock className="mr-2 h-6 w-6" />
           Upcoming Matches
         </h2>
         <Link
@@ -28,6 +29,7 @@ export const UpcomingMatchForHome = () => {
           <ChevronRight className="w-4 h-4 ml-1" />
         </Link>
       </div>
+
       <div className="flex items-center gap-4 mb-4">
         <div className="h-px bg-gray-200 flex-grow" />
         <h2 className="text-lg font-semibold text-gray-600 whitespace-nowrap px-4">

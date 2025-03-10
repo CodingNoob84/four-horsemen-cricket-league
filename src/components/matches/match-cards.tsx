@@ -2,6 +2,7 @@ import { formatLocalTime } from "@/lib/utils";
 import { UpcomingMatchByUser } from "@/types";
 import { History, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 
@@ -14,8 +15,8 @@ export const UpcomingMatchCard = ({
     <Card className="w-full max-w-md overflow-hidden border-2 rounded-xl shadow-md">
       <CardContent className="flex flex-col gap-2 p-5">
         {/* Header with City and Time */}
-        <div className="flex justify-between items-center ">
-          <div className="flex items-center text-sm text-gray-600">
+        <div className="flex justify-end md:justify-between items-center ">
+          <div className="hidden md:flex items-center text-sm text-gray-600">
             <MapPin className="w-4 h-4 mr-1" />
             {match.venue}
           </div>
@@ -46,7 +47,12 @@ export const UpcomingMatchCard = ({
               className=" p-1"
             />
             <span className="text-xs font-medium text-center">
-              {match.homeTeam.teamName}
+              {/* Show full team name on larger screens */}
+              <span className="hidden md:inline">
+                {match.homeTeam.teamName}
+              </span>
+              {/* Show short form on mobile */}
+              <span className="md:hidden">{match.homeTeam.shortForm}</span>
             </span>
           </div>
           <div className="flex flex-col items-center space-y-3">
@@ -61,7 +67,12 @@ export const UpcomingMatchCard = ({
               className="p-1"
             />
             <span className="text-xs font-medium text-center">
-              {match.awayTeam.teamName}
+              {/* Show full team name on larger screens */}
+              <span className="hidden md:inline">
+                {match.awayTeam.teamName}
+              </span>
+              {/* Show short form on mobile */}
+              <span className="md:hidden">{match.awayTeam.shortForm}</span>
             </span>
           </div>
         </div>
@@ -93,9 +104,16 @@ export const PastMatchCard = ({ match }: { match: UpcomingMatchByUser }) => {
               height={70}
               className="rounded-full border-2 border-gray-100 p-1"
             />
-            <span className="text-xs font-medium text-center">
-              {match.homeTeam.teamName}
-            </span>
+            <div className="flex flex-col items-center">
+              <span className="text-xs font-medium text-center">
+                {/* Show full team name on larger screens */}
+                <span className="hidden md:inline">
+                  {match.homeTeam.teamName}
+                </span>
+                {/* Show short form on mobile */}
+                <span className="md:hidden">{match.homeTeam.shortForm}</span>
+              </span>
+            </div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-xl font-bold text-gray-700">VS</div>
@@ -109,7 +127,12 @@ export const PastMatchCard = ({ match }: { match: UpcomingMatchByUser }) => {
               className="rounded-full border-2 border-gray-100 p-1"
             />
             <span className="text-xs font-medium text-center">
-              {match.awayTeam.teamName}
+              {/* Show full team name on larger screens */}
+              <span className="hidden md:inline">
+                {match.awayTeam.teamName}
+              </span>
+              {/* Show short form on mobile */}
+              <span className="md:hidden">{match.awayTeam.shortForm}</span>
             </span>
           </div>
         </div>
@@ -126,10 +149,13 @@ export const PastMatchCard = ({ match }: { match: UpcomingMatchByUser }) => {
           <div className="text-sm font-medium text-blue-700">
             You scored {match.matchPoints} points
           </div>
-          <button className="flex items-center text-xs text-gray-600 hover:text-blue-700">
+          <Link
+            href="/points-history"
+            className="flex items-center text-xs text-gray-600 hover:text-blue-700"
+          >
             <History className="w-4 h-4 mr-1" />
             View Points History
-          </button>
+          </Link>
         </div>
       </CardContent>
     </Card>

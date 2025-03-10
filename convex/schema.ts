@@ -16,7 +16,8 @@ const schema = defineSchema({
     isAutoSetupDone: v.optional(v.boolean()),
   })
     .index("email", ["email"])
-    .index("phone", ["phone"]),
+    .index("phone", ["phone"])
+    .searchIndex("search", { searchField: "name" }),
   matches: defineTable({
     datetimeUtc: v.string(),
     homeTeamId: v.string(),
@@ -85,7 +86,7 @@ const schema = defineSchema({
   })
     .index("matchId", ["matchId"])
     .index("matchId_teamId", ["matchId", "teamId"]),
-  userPoints: defineTable({
+  userMatchPoints: defineTable({
     userId: v.id("users"),
     matchId: v.id("matches"),
     points: v.number(),
@@ -93,6 +94,27 @@ const schema = defineSchema({
     .index("userId", ["userId"])
     .index("matchId", ["matchId"])
     .index("userId_matchId", ["userId", "matchId"]),
+  userTotalPoints: defineTable({
+    userId: v.id("users"),
+    matches: v.array(v.id("matches")),
+    totalPoints: v.number(),
+  })
+    .index("userId", ["userId"])
+    .index("by_totalPoints", ["totalPoints"]),
+  groups: defineTable({
+    name: v.string(),
+    code: v.string(),
+    createdBy: v.id("users"),
+  })
+    .index("by_code", ["code"])
+    .index("by_createdBy", ["createdBy"]),
+
+  user_groups: defineTable({
+    userId: v.id("users"),
+    groupId: v.id("groups"),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_groupId", ["groupId"]),
 });
 
 export default schema;

@@ -17,6 +17,7 @@ import type * as admin from "../admin.js";
 import type * as auth from "../auth.js";
 import type * as common from "../common.js";
 import type * as crons from "../crons.js";
+import type * as groups from "../groups.js";
 import type * as http from "../http.js";
 import type * as matches from "../matches.js";
 import type * as teams from "../teams.js";
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   common: typeof common;
   crons: typeof crons;
+  groups: typeof groups;
   http: typeof http;
   matches: typeof matches;
   teams: typeof teams;

@@ -1,7 +1,9 @@
 "use client";
-
+import { LoadingScreen } from "@/components/common/loading-screen";
 import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { useParams } from "next/navigation";
+import { api } from "../../../../../convex/_generated/api";
+import { Id } from "../../../../../convex/_generated/dataModel";
 
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { UserCardWithPoints } from "@/components/pointshistory/user-card";
@@ -32,13 +34,18 @@ import {
   Users,
 } from "lucide-react";
 
-export default function UserPointsHistoryPage() {
-  const userpoints = useQuery(api.userspoints.fetchPastMatchesUserPoints);
-  console.log("userponts", userpoints);
-
+export default function UserDetailPage() {
+  const { userId } = useParams();
+  const userpoints = useQuery(api.userspoints.fetchUserPointsById, {
+    userId: userId as Id<"users">,
+  });
+  //console.log("user", userpoints);
+  if (userpoints == undefined) {
+    return <LoadingScreen />;
+  }
   return (
     <div className="container mx-auto py-8 px-4">
-      <Breadcrumbs title="Points History" isAdmin={false} backLink="/" />
+      <Breadcrumbs title="User History" isAdmin={false} backLink="/users" />
       {/* User Profile Section */}
       {userpoints && (
         <>

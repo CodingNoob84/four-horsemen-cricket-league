@@ -58,14 +58,14 @@ export const UserMenuCard = () => {
       <SheetContent side="right" className="w-64">
         {/* User Profile Section */}
         <SheetHeader>
-          <div className="flex items-center space-x-3 pb-4 border-b">
+          <div className="flex flex-col items-center space-x-3 pt-5 pb-4 border-b">
             <Avatar className="w-14 h-14 border-2 border-primary">
               <AvatarImage src={user?.image} alt={user?.name} />
               <AvatarFallback>
                 {getInitials(user?.name || "User")}
               </AvatarFallback>
             </Avatar>
-            <div>
+            <div className="flex flex-col items-center justify-center">
               <SheetTitle className="text-lg font-medium">
                 {user?.name}
               </SheetTitle>

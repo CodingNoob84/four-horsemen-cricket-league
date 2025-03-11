@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as admin from "../admin.js";
+import type * as adminreq from "../adminreq.js";
 import type * as auth from "../auth.js";
 import type * as common from "../common.js";
 import type * as crons from "../crons.js";
@@ -34,6 +35,7 @@ import type * as userspoints from "../userspoints.js";
  */
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
+  adminreq: typeof adminreq;
   auth: typeof auth;
   common: typeof common;
   crons: typeof crons;

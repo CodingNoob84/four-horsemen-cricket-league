@@ -108,13 +108,25 @@ const schema = defineSchema({
   })
     .index("by_code", ["code"])
     .index("by_createdBy", ["createdBy"]),
-
   user_groups: defineTable({
     userId: v.id("users"),
     groupId: v.id("groups"),
   })
     .index("by_userId", ["userId"])
     .index("by_groupId", ["groupId"]),
+  adminRequests: defineTable({
+    userId: v.id("users"),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected")
+    ),
+    requestedAt: v.float64(),
+    processedAt: v.optional(v.float64()),
+    processedBy: v.optional(v.id("users")),
+  })
+    .index("by_userId", ["userId"]) // Index for fetching requests by user
+    .index("by_status", ["status"]),
 });
 
 export default schema;

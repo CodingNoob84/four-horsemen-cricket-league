@@ -20,7 +20,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { teamColors } from "@/lib/data";
+
 import { cn, formatLocalDateTime } from "@/lib/utils";
 import {
   AlertCircle,
@@ -31,6 +31,19 @@ import {
   User,
   Users,
 } from "lucide-react";
+
+const teamColors: Record<string, string> = {
+  CSK: "bg-yellow-500",
+  RCB: "bg-red-600",
+  MI: "bg-blue-600",
+  KKR: "bg-purple-600",
+  SRH: "bg-orange-500",
+  DC: "bg-blue-400",
+  RR: "bg-pink-500",
+  PBKS: "bg-red-500",
+  GT: "bg-teal-500",
+  LSG: "bg-cyan-600",
+};
 
 export default function UserPointsHistoryPage() {
   const userpoints = useQuery(api.userspoints.fetchPastMatchesUserPoints);

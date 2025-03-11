@@ -17,7 +17,7 @@ export const UserCard = () => {
   return (
     <div className="mb-8 p-2">
       {user && (
-        <div className="w-full max-w-xl shadow-lg border rounded-md p-4">
+        <div className="w-full max-w-xl shadow-lg border rounded-lg p-4">
           <div className="flex flex-col sm:flex-row justify-between gap-2">
             <div className="flex flex-row gap-2">
               <Avatar className="h-16 w-16 rounded-full">
@@ -42,7 +42,9 @@ export const UserCard = () => {
 
               <div className="flex flex-row items-center gap-2">
                 <Trophy className="h-6 w-6 text-primary" />
-                <p className="text-2xl font-bold">{user.totalOverallPoints}</p>
+                <p className="text-2xl font-bold">
+                  {user.totalOverallPoints ?? 0}
+                </p>
               </div>
             </div>
           </div>

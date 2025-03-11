@@ -22,24 +22,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { teamColors } from "@/lib/data";
+
 import { cn, formatLocalDateTime } from "@/lib/utils";
-import {
-  AlertCircle,
-  Calendar,
-  ChevronDown,
-  Star,
-  Trophy,
-  User,
-  Users,
-} from "lucide-react";
+import { AlertCircle, Calendar, Star, Trophy, User, Users } from "lucide-react";
+
+const teamColors: Record<string, string> = {
+  CSK: "bg-yellow-500",
+  RCB: "bg-red-600",
+  MI: "bg-blue-600",
+  KKR: "bg-purple-600",
+  SRH: "bg-orange-500",
+  DC: "bg-blue-400",
+  RR: "bg-pink-500",
+  PBKS: "bg-red-500",
+  GT: "bg-teal-500",
+  LSG: "bg-cyan-600",
+};
 
 export default function UserDetailPage() {
   const { userId } = useParams();
   const userpoints = useQuery(api.userspoints.fetchUserPointsById, {
     userId: userId as Id<"users">,
   });
-  //console.log("user", userpoints);
+  console.log("user", userpoints);
   if (userpoints == undefined) {
     return <LoadingScreen />;
   }
@@ -161,7 +166,7 @@ export default function UserDetailPage() {
                                 className={cn(
                                   "text-white font-medium",
                                   teamColors[match.homeTeamName] ||
-                                    teamColors.default
+                                    "bg-gray-500"
                                 )}
                               >
                                 {match.homeTeamName}
@@ -173,7 +178,7 @@ export default function UserDetailPage() {
                                 className={cn(
                                   "text-white font-medium",
                                   teamColors[match.awayTeamName] ||
-                                    teamColors.default
+                                    "bg-gray-500"
                                 )}
                               >
                                 {match.awayTeamName}
@@ -204,10 +209,6 @@ export default function UserDetailPage() {
                                 <AlertCircle className="w-3 h-3 mr-1" />
                                 Not Played
                               </Badge>
-                            )}
-
-                            {played && (
-                              <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180 hidden md:block" />
                             )}
                           </div>
                         </div>

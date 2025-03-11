@@ -1,4 +1,5 @@
 "use client";
+import { AlertNotification } from "@/components/home/alert-notofication";
 import { GlobalLeaderBoard } from "@/components/home/global-leaderboard";
 import { MyGroups } from "@/components/home/my-groups";
 import { RecentMatch } from "@/components/home/recent-match";
@@ -38,6 +39,7 @@ export default function Home() {
           <Link href="/what-is-4horsemen">Read about 4HCL</Link>
         </Button>
       </div>
+      <AlertNotification />
       <UserCard />
       <RecentMatch />
 

@@ -9,8 +9,15 @@ export const Footer = () => {
         <div>
           Not affiliated with the official Indian Premier League or BCCI.
         </div>
-        <div>
-          Made with <span className="text-red-500">❤️</span> by Karthik
+        <div className="flex flex-row gap-2">
+          <div>Made with</div>
+          <div className="inline-block text-red-500 animate-bounce">❤️</div>
+          <div>
+            by{" "}
+            <span className="font-bold">
+              K<span className="text-red-500">ART</span>HIK
+            </span>
+          </div>
         </div>
       </div>
     </footer>

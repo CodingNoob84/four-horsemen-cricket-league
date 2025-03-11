@@ -11,7 +11,7 @@ export const currentUser = query({
   },
 });
 
-export const userwithTotalPoints= query({
+export const userwithTotalPoints = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
@@ -25,13 +25,14 @@ export const userwithTotalPoints= query({
       throw new Error("User not found");
     }
 
-const totalPoints= await ctx.db.query("userTotalPoints").withIndex("userId",(q) =>
-  q.eq("userId", userId)).first();
+    const totalPoints = await ctx.db
+      .query("userTotalPoints")
+      .withIndex("userId", (q) => q.eq("userId", userId))
+      .first();
 
-
-    return {...user,totalOverallPoints:totalPoints?.totalPoints} ;
+    return { ...user, totalOverallPoints: totalPoints?.totalPoints };
   },
-})
+});
 
 export const getUserDetailsWithLastMatch = query({
   args: {},
@@ -175,6 +176,27 @@ export const getUserDetailsWithLastMatch = query({
         matchPoints,
       },
       totalOverallPoints,
+    };
+  },
+});
+
+export const getAllUsersCount = query({
+  args: {},
+  handler: async (ctx) => {
+    // Fetch all users
+    const users = await ctx.db.query("users").collect();
+
+    // Count total users
+    const totalUsers = users.length;
+
+    // Count users where `isAutoSetupDone` is false
+    const pendingSetupUsers = users.filter(
+      (user) => !user.isAutoSetupDone
+    ).length;
+
+    return {
+      totalUsers,
+      pendingSetupUsers,
     };
   },
 });

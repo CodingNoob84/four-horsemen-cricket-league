@@ -1,0 +1,668 @@
+[
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-22T14:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 1,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-23T10:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 2,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-23T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 3,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-24T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 4,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Visakhapatnam"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-25T14:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 5,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-26T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 6,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Guwahati"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-27T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 7,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-28T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 8,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-29T14:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 9,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-30T10:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 10,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Visakhapatnam"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-30T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 11,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Guwahati"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-03-31T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 12,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-01T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 13,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-02T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 14,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-03T14:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 15,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-04T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 16,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-05T10:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 17,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-05T14:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 18,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "New Chandigarh"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-06T10:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 19,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-06T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 20,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-07T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 21,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-08T14:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 22,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "New Chandigarh"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-09T14:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 23,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-10T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 24,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-11T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 25,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-12T10:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 26,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-12T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 27,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-13T10:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 28,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Jaipur"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-13T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 29,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Delhi"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-14T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 30,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-15T14:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 31,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "New Chandigarh"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-16T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 32,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Delhi"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-17T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 33,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-18T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 34,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-19T10:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 35,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-19T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 36,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Jaipur"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-20T10:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 37,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "New Chandigarh"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-20T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 38,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-21T14:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 39,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-22T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 40,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-23T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 41,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-24T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 42,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-25T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 43,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-26T14:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 44,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-27T10:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 45,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-27T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 46,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Delhi"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-28T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 47,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Jaipur"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-29T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 48,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Delhi"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-04-30T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 49,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-01T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 50,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Jaipur"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-02T14:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 51,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-03T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 52,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-04T10:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 53,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-04T14:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 54,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Dharamsala"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-05T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 55,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-06T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 56,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-07T14:00:00Z",
+    "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "isLeague": true,
+    "matchNumber": 57,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-08T14:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 58,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Dharamsala"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-09T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 59,
+    "oppTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-10T14:00:00Z",
+    "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "isLeague": true,
+    "matchNumber": 60,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-11T10:00:00Z",
+    "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "isLeague": true,
+    "matchNumber": 61,
+    "oppTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "venue": "Dharamsala"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-11T14:00:00Z",
+    "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "isLeague": true,
+    "matchNumber": 62,
+    "oppTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "venue": "Delhi"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-12T14:00:00Z",
+    "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "isLeague": true,
+    "matchNumber": 63,
+    "oppTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "venue": "Chennai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-13T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 64,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-14T14:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 65,
+    "oppTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-15T14:00:00Z",
+    "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
+    "isLeague": true,
+    "matchNumber": 66,
+    "oppTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
+    "venue": "Mumbai"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-16T14:00:00Z",
+    "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
+    "isLeague": true,
+    "matchNumber": 67,
+    "oppTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
+    "venue": "Jaipur"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-17T14:00:00Z",
+    "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
+    "isLeague": true,
+    "matchNumber": 68,
+    "oppTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
+    "venue": "Bengaluru"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-18T10:00:00Z",
+    "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
+    "isLeague": true,
+    "matchNumber": 69,
+    "oppTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
+    "venue": "Ahmedabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-18T14:00:00Z",
+    "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
+    "isLeague": true,
+    "matchNumber": 70,
+    "oppTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
+    "venue": "Lucknow"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-20T14:00:00Z",
+    "homeTeamId": "",
+    "isLeague": false,
+    "matchNumber": 71,
+    "oppTeamId": "",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-21T14:00:00Z",
+    "homeTeamId": "",
+    "isLeague": false,
+    "matchNumber": 72,
+    "oppTeamId": "",
+    "venue": "Hyderabad"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-23T14:00:00Z",
+    "homeTeamId": "",
+    "isLeague": false,
+    "matchNumber": 73,
+    "oppTeamId": "",
+    "venue": "Kolkata"
+  },
+  {
+    "canSubmit": false,
+    "datetimeUtc": "2025-05-25T14:00:00Z",
+    "homeTeamId": "",
+    "isLeague": false,
+    "matchNumber": 74,
+    "oppTeamId": "",
+    "venue": "Kolkata"
+  }
+]

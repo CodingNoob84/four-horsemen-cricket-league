@@ -239,7 +239,7 @@ export const getGroupDetails = query({
     }
 
     // Fetch details of each member, their total points, and points for the past recent match
-    const members = await Promise.all(
+    let members = await Promise.all(
       userGroups.map(async (userGroup) => {
         const user = await ctx.db.get(userGroup.userId);
         if (!user) {

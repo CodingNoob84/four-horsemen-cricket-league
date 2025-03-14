@@ -9,6 +9,14 @@ export default function FourHorsemenBlog() {
             🏏️ 4 Horsemen Cricket League: Pick Your Warriors, Rule the Fantasy
             Battlefield! 🔥
           </h1>
+          <div className="flex justify-center mt-8">
+            <Link
+              href="/"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold text-lg shadow-md hover:bg-blue-700 transition"
+            >
+              Join Now 🏏
+            </Link>
+          </div>
 
           {/* Introduction */}
           <h2 className="text-2xl font-semibold text-gray-900 mt-6 mb-4">

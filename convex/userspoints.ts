@@ -443,11 +443,19 @@ export const recentMatchPoints = query({
     // Fetch all player details in parallel
     const playersWithPoints = await Promise.all(
       fantasySelection.selectedPlayers.map(async (playerId) => {
+        const isCaptain = fantasySelection.captain === playerId; // Check if the player is captain
         const playerDetails = await ctx.db.get(playerId);
+        let playerPoints = playerPointsMap.get(playerId) || 0; // Assign 0 if player data is missing
+
+        if (isCaptain) {
+          playerPoints *= 2; // Double the points for the captain
+        }
+
         return {
           playerId,
           playerName: playerDetails?.name || "Unknown Player",
-          playerPoints: playerPointsMap.get(playerId) || 0, // Assign 0 if player data is missing
+          playerPoints, // Updated points with captain bonus
+          isCaptain, // Include captain flag for UI display if needed
         };
       })
     );
@@ -503,11 +511,15 @@ export const globalLeaderBoard = query({
     }
 
     // Fetch all userTotalPoints entries, sorted by totalPoints in descending order
-    const leaderboardEntries = await ctx.db
+    let leaderboardEntries = await ctx.db
       .query("userTotalPoints")
       .withIndex("by_totalPoints", (q) => q) // Use the index for sorting
       .order("desc") // Sort by totalPoints in descending order
       .collect(); // Get all users to determine ranking
+
+    leaderboardEntries = leaderboardEntries.sort(
+      (a, b) => b.totalPoints - a.totalPoints
+    );
 
     let currentUserEntry = null;
     let currentUserRank = null;
@@ -597,12 +609,15 @@ export const recentMatchLeaderboard = query({
     }
 
     // Fetch user match points for this match
-    const matchLeaderboardEntries = await ctx.db
+    let matchLeaderboardEntries = await ctx.db
       .query("userMatchPoints")
       .withIndex("matchId", (q) => q.eq("matchId", recentMatch._id))
-      .order("desc") // Sort by highest points
       .collect(); // Get all users (to ensure we can determine ranking)
 
+    //order by matchLeaderboardEntries.points from highest to lowest
+    matchLeaderboardEntries = matchLeaderboardEntries.sort(
+      (a, b) => b.points - a.points
+    );
     let currentUserEntry = null;
     let currentUserRank = null;
 

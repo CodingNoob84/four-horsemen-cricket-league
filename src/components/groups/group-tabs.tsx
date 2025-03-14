@@ -85,7 +85,7 @@ export function GroupTabs({
         </TabsTrigger>
       </TabsList>
 
-      {/* Total Points Tab */}
+      {/* Total Points Tab (Sorted by `totalPoints`) */}
       <TabsContent value="total" className="mt-0">
         <Card>
           <CardHeader className="pb-2">
@@ -101,51 +101,40 @@ export function GroupTabs({
                   <tr className="border-b">
                     <th className="text-left p-4 font-medium">Rank</th>
                     <th className="text-left p-4 font-medium">User</th>
-                    <th className="text-right p-4 font-medium">Points</th>
+                    <th className="text-right p-4 font-medium">Total Points</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {group.members.map((player, index) => (
-                    <tr
-                      key={player.userId}
-                      className={`border-b hover:bg-muted/50 ${player.isUser ? "bg-primary/10" : ""}`}
-                    >
-                      <td className="p-4 font-medium">
-                        {index === 0 ? (
-                          <span className="flex items-center">
-                            <Trophy className="h-4 w-4 mr-1 text-yellow-500" />
-                            1st
-                          </span>
-                        ) : index === 1 ? (
-                          <span className="flex items-center">
-                            <Trophy className="h-4 w-4 mr-1 text-gray-400" />
-                            2nd
-                          </span>
-                        ) : index === 2 ? (
-                          <span className="flex items-center">
-                            <Trophy className="h-4 w-4 mr-1 text-amber-700" />
-                            3rd
-                          </span>
-                        ) : (
-                          `#${index + 1}`
-                        )}
-                      </td>
-                      <td className="p-4 flex items-center gap-2">
-                        <Avatar className="h-8 w-8">
-                          {player.image ? (
-                            <AvatarImage src={player.image} alt={player.name} />
-                          ) : null}
-                          <AvatarFallback>
-                            {player.name.charAt(0)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span>{player.name}</span>
-                      </td>
-                      <td className="p-4 text-right font-bold">
-                        {player.totalPoints}
-                      </td>
-                    </tr>
-                  ))}
+                  {group.members
+                    .slice()
+                    .sort((a, b) => b.totalPoints - a.totalPoints) // Sort by totalPoints (Descending)
+                    .map((player, index) => (
+                      <tr
+                        key={player.userId}
+                        className={`border-b hover:bg-muted/50 ${
+                          player.isUser ? "bg-primary/10" : ""
+                        }`}
+                      >
+                        <td className="p-4 font-medium">#{index + 1}</td>
+                        <td className="p-4 flex items-center gap-2">
+                          <Avatar className="h-8 w-8">
+                            {player.image ? (
+                              <AvatarImage
+                                src={player.image}
+                                alt={player.name}
+                              />
+                            ) : null}
+                            <AvatarFallback>
+                              {player.name.charAt(0)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span>{player.name}</span>
+                        </td>
+                        <td className="p-4 text-right font-bold">
+                          {player.totalPoints}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -153,7 +142,7 @@ export function GroupTabs({
         </Card>
       </TabsContent>
 
-      {/* Match Points Tab */}
+      {/* Match Points Tab (Sorted by `matchPoints`) */}
       <TabsContent value="match" className="mt-0">
         <div className="mb-6">
           {pastMatches && (
@@ -200,31 +189,58 @@ export function GroupTabs({
                     <tr className="border-b">
                       <th className="text-left p-4 font-medium">Rank</th>
                       <th className="text-left p-4 font-medium">User</th>
-                      <th className="text-right p-4 font-medium">Points</th>
+                      <th className="text-right p-4 font-medium">
+                        Match Points
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {matchPoints.members.map((player, index) => (
-                      <tr
-                        key={player.userId}
-                        className={`border-b hover:bg-muted/50 ${player.isUser ? "bg-primary/10" : ""}`}
-                      >
-                        <td className="p-4 font-medium">#{index + 1}</td>
-                        <td className="p-4">{player.name}</td>
-                        <td className="p-4 text-right font-bold">
-                          {player.matchPoints}
-                        </td>
-                      </tr>
-                    ))}
+                    {matchPoints.members
+                      .slice()
+                      .sort((a, b) => b.matchPoints - a.matchPoints) // Sort by matchPoints (Descending)
+                      .map((player, index) => (
+                        <tr
+                          key={player.userId}
+                          className={`border-b hover:bg-muted/50 ${
+                            player.isUser ? "bg-primary/10" : ""
+                          }`}
+                        >
+                          <td className="p-4 font-medium">#{index + 1}</td>
+                          <td className="p-4 flex items-center gap-2">
+                            <Avatar className="h-8 w-8">
+                              {player.image ? (
+                                <AvatarImage
+                                  src={player.image}
+                                  alt={player.name}
+                                />
+                              ) : null}
+                              <AvatarFallback>
+                                {player.name.charAt(0)}
+                              </AvatarFallback>
+                            </Avatar>
+                            <span>{player.name}</span>
+                          </td>
+                          <td className="p-4 text-right font-bold">
+                            {player.matchPoints}
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
             </CardContent>
           </Card>
         ) : (
-          <p className="text-center text-muted-foreground">
-            Loading match points...
-          </p>
+          <div className="flex flex-col items-center justify-center p-6">
+            <Trophy className="h-8 w-8 text-yellow-500 mb-2" />
+            <span className="text-lg font-semibold">
+              Player Points for This Match Are Not Yet Available
+            </span>
+            <span className="text-sm text-gray-500 text-center">
+              We are currently updating the leaderboard. Please check back soon
+              for the latest player points.
+            </span>
+          </div>
         )}
       </TabsContent>
     </Tabs>

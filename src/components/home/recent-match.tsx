@@ -5,17 +5,17 @@ import {
   Calendar,
   Check,
   ChevronRight,
+  Crown,
   Loader,
 } from "lucide-react";
 import Link from "next/link";
 import { api } from "../../../convex/_generated/api";
-import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export const RecentMatch = () => {
   const recentMatch = useQuery(api.userspoints.recentMatchPoints);
-
+  console.log("recentMatch", recentMatch);
   if (recentMatch === undefined) {
     return (
       <div className="p-2">
@@ -116,11 +116,6 @@ export const RecentMatch = () => {
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-2 rounded-md bg-muted/30">
                   <div className="flex items-center gap-2">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback>
-                        {recentMatch.team?.teamName.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
                     <div>
                       <p className="font-medium">
                         {recentMatch.team?.teamName}
@@ -142,11 +137,16 @@ export const RecentMatch = () => {
                     className="flex justify-between items-center p-2 rounded-md bg-muted/30"
                   >
                     <div className="flex items-center gap-2">
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback>
-                          {player.playerName.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
+                      <div
+                        className={`p-2 rounded-full ${
+                          player.isCaptain
+                            ? "text-yellow-600 bg-yellow-100"
+                            : "text-gray-400 "
+                        }`}
+                      >
+                        <Crown className="w-5 h-5" />
+                      </div>
+
                       <div>
                         <p className="font-medium">{player.playerName}</p>
                       </div>

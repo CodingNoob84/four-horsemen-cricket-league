@@ -47,7 +47,9 @@ export default function UsersPage() {
 
   // Determine which user list to show
   const displayedUsers =
-    debouncedQuery.length > 0 ? (searchedUsers ?? []) : (users ?? []);
+    debouncedQuery.length > 0
+      ? (searchedUsers ?? [])
+      : (users?.usertable ?? []);
 
   if (users == undefined) {
     return <LoadingScreen />;

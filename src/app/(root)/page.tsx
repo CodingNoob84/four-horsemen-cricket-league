@@ -3,6 +3,7 @@ import { AlertNotification } from "@/components/home/alert-notofication";
 import { GlobalLeaderBoard } from "@/components/home/global-leaderboard";
 import { MyGroups } from "@/components/home/my-groups";
 import { RecentMatch } from "@/components/home/recent-match";
+import MatchLeaderboard from "@/components/home/recentmatch-leaderboard";
 import { UpcomingMatchForHome } from "@/components/home/upcoming-match";
 import { UserCard } from "@/components/home/user-card";
 import { Button } from "@/components/ui/button";
@@ -42,9 +43,9 @@ export default function Home() {
       <AlertNotification />
       <UserCard />
       <RecentMatch />
-
       <UpcomingMatchForHome />
       <MyGroups />
+      <MatchLeaderboard />
       <GlobalLeaderBoard />
     </div>
   );

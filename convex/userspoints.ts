@@ -498,33 +498,163 @@ export const globalLeaderBoard = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User not authenticated");
+    }
+
     // Fetch all userTotalPoints entries, sorted by totalPoints in descending order
     const leaderboardEntries = await ctx.db
       .query("userTotalPoints")
       .withIndex("by_totalPoints", (q) => q) // Use the index for sorting
       .order("desc") // Sort by totalPoints in descending order
-      .take(10);
+      .collect(); // Get all users to determine ranking
 
-    // Fetch user details for each entry
+    let currentUserEntry = null;
+    let currentUserRank = null;
+
+    // Map user data & find current user's rank
     const leaderboard = await Promise.all(
-      leaderboardEntries.map(async (entry) => {
+      leaderboardEntries.map(async (entry, index) => {
         const user = await ctx.db.get(entry.userId);
-        if (!user) {
-          throw new Error("User not found");
+        if (!user) return null; // Skip if user not found
+
+        const userRank = index + 1; // Assign rank (1-based index)
+
+        // If this is the current user, store their rank & entry
+        if (user._id === userId) {
+          currentUserRank = userRank;
+          currentUserEntry = {
+            rank: userRank,
+            userId: user._id,
+            name: user.name || "Unknown",
+            email: user.email || "",
+            image: user.image || "",
+            totalPoints: entry.totalPoints,
+            isCurrentUser: true,
+          };
         }
 
         return {
+          rank: userRank,
           userId: user._id,
-          isCurrentUser: user._id == userId,
           name: user.name || "Unknown",
           email: user.email || "",
-          image: user.image || "", // Assuming the `users` table has an `image` field
+          image: user.image || "",
           totalPoints: entry.totalPoints,
+          isCurrentUser: user._id === userId,
         };
       })
     );
 
-    return leaderboard;
+    // Remove null users & take the top 10
+    const top10 = leaderboard.filter((entry) => entry !== null).slice(0, 10);
+
+    // If current user is **not** in the top 10, add them separately
+    if (currentUserEntry && !top10.some((u) => u.userId === userId)) {
+      top10.push(currentUserEntry);
+    }
+
+    return {
+      usertable: top10,
+      currentUserRank,
+    };
+  },
+});
+
+export const recentMatchLeaderboard = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User not authenticated");
+    }
+
+    const now = new Date().toISOString();
+
+    // Fetch the most recent past match
+    const recentMatch = await ctx.db
+      .query("matches")
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc") // Get the latest past match
+      .first();
+
+    if (!recentMatch) {
+      return {
+        matchId: null,
+        match: "",
+        datetimeUtc: "",
+        usertable: [],
+        currentUserRank: null,
+      };
+    }
+
+    // Fetch home and away team details
+    const homeTeam = await ctx.db.get(recentMatch.homeTeamId as Id<"teams">);
+    const awayTeam = await ctx.db.get(recentMatch.oppTeamId as Id<"teams">);
+
+    if (!homeTeam || !awayTeam) {
+      throw new Error("Team details not found");
+    }
+
+    // Fetch user match points for this match
+    const matchLeaderboardEntries = await ctx.db
+      .query("userMatchPoints")
+      .withIndex("matchId", (q) => q.eq("matchId", recentMatch._id))
+      .order("desc") // Sort by highest points
+      .collect(); // Get all users (to ensure we can determine ranking)
+
+    let currentUserEntry = null;
+    let currentUserRank = null;
+
+    // Map user data & find current user's rank
+    const leaderboard = await Promise.all(
+      matchLeaderboardEntries.map(async (entry, index) => {
+        const user = await ctx.db.get(entry.userId);
+        if (!user) return null; // Skip if user not found
+
+        const userRank = index + 1; // Assign rank (1-based index)
+
+        // If this is the current user, store their rank & entry
+        if (user._id === userId) {
+          currentUserRank = userRank;
+          currentUserEntry = {
+            rank: userRank,
+            userId: user._id,
+            name: user.name || "Unknown",
+            email: user.email || "",
+            image: user.image || "",
+            matchPoints: entry.points,
+            isCurrentUser: true,
+          };
+        }
+
+        return {
+          rank: userRank,
+          userId: user._id,
+          name: user.name || "Unknown",
+          email: user.email || "",
+          image: user.image || "",
+          matchPoints: entry.points,
+          isCurrentUser: user._id === userId,
+        };
+      })
+    );
+
+    // Remove null users & take the top 10
+    const top10 = leaderboard.filter((entry) => entry !== null).slice(0, 10);
+
+    // If current user is **not** in top 10, add them separately
+    if (currentUserEntry && !top10.some((u) => u.userId === userId)) {
+      top10.push(currentUserEntry);
+    }
+
+    return {
+      matchId: recentMatch._id,
+      match: `${homeTeam.shortForm} vs ${awayTeam.shortForm}`,
+      datetimeUtc: recentMatch.datetimeUtc,
+      usertable: top10,
+      currentUserRank,
+    };
   },
 });
 

@@ -1,5 +1,6 @@
 import { useQuery } from "convex/react";
 import { CircleX, Loader, LucideIcon, Users } from "lucide-react";
+import Link from "next/link";
 import { api } from "../../../convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
@@ -54,17 +55,19 @@ export const StatCard = ({
   iconBgColor,
 }: StatCardProps) => {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className={`${iconBgColor} p-2 rounded-full`}>
-          <Icon className={`h-4 w-4 ${iconColor}`} />
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
-      </CardContent>
-    </Card>
+    <Link href="/admin/users">
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-sm font-medium">{title}</CardTitle>
+          <div className={`${iconBgColor} p-2 rounded-full`}>
+            <Icon className={`h-4 w-4 ${iconColor}`} />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold">{value}</div>
+          <p className="text-xs text-muted-foreground">{description}</p>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };

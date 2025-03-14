@@ -25,12 +25,21 @@ export const userwithTotalPoints = query({
       throw new Error("User not found");
     }
 
+    const matches = await ctx.db
+      .query("userMatchPoints")
+      .withIndex("userId", (q) => q.eq("userId", userId))
+      .collect();
+
     const totalPoints = await ctx.db
       .query("userTotalPoints")
       .withIndex("userId", (q) => q.eq("userId", userId))
       .first();
 
-    return { ...user, totalOverallPoints: totalPoints?.totalPoints };
+    return {
+      ...user,
+      matches: matches.length || 0,
+      totalOverallPoints: totalPoints?.totalPoints,
+    };
   },
 });
 
@@ -198,5 +207,13 @@ export const getAllUsersCount = query({
       totalUsers,
       pendingSetupUsers,
     };
+  },
+});
+
+export const getAllUsers = query({
+  args: {},
+  handler: async (ctx) => {
+    // Fetch all users
+    return await ctx.db.query("users").collect();
   },
 });

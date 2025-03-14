@@ -35,13 +35,13 @@ export const MatchLeaderboard = () => {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold mb-4 flex items-center">
               <Trophy className="mr-2 h-6 w-6" />
-              Recent Match Leaderboard
+              Match Leaderboard
             </h2>
             <Link
               href="/users"
               className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
             >
-              View All Users
+              View All
               <ChevronRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
@@ -60,7 +60,7 @@ export const MatchLeaderboard = () => {
           ) : (
             <Card className="w-full max-w-[900px] mx-auto mb-6">
               <CardHeader className="pb-2">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-row justify-between">
                   <div className="flex items-center space-x-4">
                     <Badge>{match.match}</Badge>
                   </div>
@@ -75,9 +75,9 @@ export const MatchLeaderboard = () => {
                   {/* Case: No users in leaderboard */}
                   {top10Users.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-6">
-                      <AlertTriangle className="h-8 w-8 text-yellow-500 mb-2" />
+                      <AlertTriangle className="h-8 w-8 text-yellow-600 mb-2" />
                       <span className="text-lg font-semibold">
-                        Player Points for This Match Are Not Yet Available
+                        Points are yet to Update
                       </span>
                       <span className="text-sm text-gray-500 text-center">
                         We are currently updating the leaderboard. Please check

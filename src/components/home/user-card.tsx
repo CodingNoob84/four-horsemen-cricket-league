@@ -37,14 +37,24 @@ export const UserCard = () => {
               </div>
             </div>
 
-            <div className="border rounded-md bg-primary/5 flex flex-col gap-2 p-2">
-              <p className="text-sm font-medium">Total Points</p>
+            <div className="flex flex-row gap-2">
+              <div className="border rounded-md bg-primary/5 flex flex-col gap-2 p-2">
+                <p className="text-sm font-medium">Total Points</p>
 
-              <div className="flex flex-row items-center gap-2">
-                <Trophy className="h-6 w-6 text-primary" />
-                <p className="text-2xl font-bold">
-                  {user.totalOverallPoints ?? 0}
-                </p>
+                <div className="flex flex-row items-center gap-2">
+                  <Trophy className="h-6 w-6 text-primary" />
+                  <p className="text-2xl font-bold">
+                    {user.totalOverallPoints ?? 0}
+                  </p>
+                </div>
+              </div>
+              <div className="border rounded-md bg-primary/5 flex flex-col gap-2 p-2">
+                <p className="text-sm font-medium">Matches Played</p>
+
+                <div className="flex flex-row items-center gap-2">
+                  <Trophy className="h-6 w-6 text-primary" />
+                  <p className="text-2xl font-bold">{user.matches ?? 0}</p>
+                </div>
               </div>
             </div>
           </div>

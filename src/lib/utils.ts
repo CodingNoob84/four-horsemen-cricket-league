@@ -139,3 +139,16 @@ export const getInitials = (name: string) => {
     .join("")
     .toUpperCase();
 };
+
+export const formatCreationTime = (timestamp: number) => {
+  const date = new Date(timestamp); // Convert timestamp to Date object
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short", // "Jan", "Feb", etc.
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true, // Display time in AM/PM format
+  });
+};

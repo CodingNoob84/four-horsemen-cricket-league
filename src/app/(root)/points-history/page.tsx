@@ -113,7 +113,7 @@ export default function UserPointsHistoryPage() {
                         (acc, match) => acc + match.matchPoints,
                         0
                       ) / userpoints?.matches.length
-                    )}
+                    ) || 0}
                   </span>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-muted rounded-lg">
@@ -122,7 +122,10 @@ export default function UserPointsHistoryPage() {
                   </span>
                   <span className="text-2xl font-bold">
                     {Math.max(
-                      ...userpoints?.matches.map((match) => match.matchPoints)
+                      0,
+                      ...(userpoints?.matches?.map(
+                        (match) => match.matchPoints ?? 0
+                      ) ?? [])
                     )}
                   </span>
                 </div>
@@ -140,140 +143,106 @@ export default function UserPointsHistoryPage() {
               <CardDescription>Your points breakdown by match</CardDescription>
             </CardHeader>
             <CardContent>
-              <Accordion type="single" collapsible className="w-full">
-                {userpoints?.matches.map((match) => {
-                  const played = match.selectedPlayers.length > 0;
+              {userpoints.matches.length > 0 ? (
+                <Accordion type="single" collapsible className="w-full">
+                  {userpoints?.matches.map((match) => {
+                    const played = match.selectedPlayers.length > 0;
 
-                  return (
-                    <AccordionItem
-                      key={match.matchId}
-                      value={`match-${match.matchId}`}
-                      className={cn(
-                        "border rounded-md mb-2 overflow-hidden",
-                        !played && "bg-gray-50 dark:bg-gray-900/30"
-                      )}
-                    >
-                      <AccordionTrigger
+                    return (
+                      <AccordionItem
+                        key={match.matchId}
+                        value={`match-${match.matchId}`}
                         className={cn(
-                          "px-4 py-3 hover:no-underline group",
-                          !played && "cursor-default"
+                          "border rounded-md mb-2 overflow-hidden",
+                          !played && "bg-gray-50 dark:bg-gray-900/30"
                         )}
-                        disabled={!played}
                       >
-                        <div className="flex flex-col md:flex-row w-full items-start md:items-center justify-between gap-2">
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center">
-                              <Badge
-                                className={cn(
-                                  "text-white font-medium",
-                                  teamColors[match.homeTeamName] ||
-                                    teamColors.default
-                                )}
-                              >
-                                {match.homeTeamName}
-                              </Badge>
-                              <span className="mx-2 text-xs md:text-sm">
-                                vs
-                              </span>
-                              <Badge
-                                className={cn(
-                                  "text-white font-medium",
-                                  teamColors[match.awayTeamName] ||
-                                    teamColors.default
-                                )}
-                              >
-                                {match.awayTeamName}
-                              </Badge>
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap items-center gap-2 md:gap-4">
-                            <div className="flex items-center gap-1 text-xs md:text-sm text-muted-foreground">
-                              <Calendar className="w-3 h-3 md:w-4 md:h-4" />
-                              <span>
-                                {formatLocalDateTime(match.datetimeUtc)}
-                              </span>
-                            </div>
-
-                            {played ? (
-                              <Badge
-                                variant="outline"
-                                className="bg-primary/10 ml-auto md:ml-2"
-                              >
-                                <Trophy className="w-3 h-3 mr-1 text-amber-500" />
-                                {match.matchPoints} pts
-                              </Badge>
-                            ) : (
-                              <Badge
-                                variant="outline"
-                                className="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 ml-auto md:ml-2"
-                              >
-                                <AlertCircle className="w-3 h-3 mr-1" />
-                                Not Played
-                              </Badge>
-                            )}
-
-                            {played && (
-                              <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180 hidden md:block" />
-                            )}
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-
-                      {played && (
-                        <AccordionContent>
-                          <div className="px-4 pt-2 pb-4">
-                            <div className="mb-4">
-                              <h4 className="text-sm font-semibold flex items-center gap-2 mb-2 text-primary">
-                                <Users className="w-4 h-4" />
-                                Team Points
-                              </h4>
-                              <div className="flex items-center justify-between p-3 rounded-lg border bg-card/50">
-                                <div className="flex items-center gap-2">
-                                  <Avatar className="w-8 h-8 border">
-                                    <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">
-                                      {match?.selectedTeamName
-                                        ? match.selectedTeamName
-                                        : "TM"}
-                                    </AvatarFallback>
-                                  </Avatar>
-                                  <div>
-                                    <p className="text-sm font-medium">
-                                      {match.selectedTeamName}
-                                    </p>
-                                  </div>
-                                </div>
+                        <AccordionTrigger
+                          className={cn(
+                            "px-4 py-3 hover:no-underline group",
+                            !played && "cursor-default"
+                          )}
+                          disabled={!played}
+                        >
+                          <div className="flex flex-col md:flex-row w-full items-start md:items-center justify-between gap-2">
+                            <div className="flex items-center gap-3">
+                              <div className="flex items-center">
                                 <Badge
-                                  variant="outline"
-                                  className="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800"
+                                  className={cn(
+                                    "text-white font-medium",
+                                    teamColors[match.homeTeamName] ||
+                                      teamColors.default
+                                  )}
                                 >
-                                  <Star className="w-3 h-3 mr-1 text-amber-500" />
-                                  {match.teamPoints} pts
+                                  {match.homeTeamName}
+                                </Badge>
+                                <span className="mx-2 text-xs md:text-sm">
+                                  vs
+                                </span>
+                                <Badge
+                                  className={cn(
+                                    "text-white font-medium",
+                                    teamColors[match.awayTeamName] ||
+                                      teamColors.default
+                                  )}
+                                >
+                                  {match.awayTeamName}
                                 </Badge>
                               </div>
                             </div>
+                            <div className="flex flex-wrap items-center gap-2 md:gap-4">
+                              <div className="flex items-center gap-1 text-xs md:text-sm text-muted-foreground">
+                                <Calendar className="w-3 h-3 md:w-4 md:h-4" />
+                                <span>
+                                  {formatLocalDateTime(match.datetimeUtc)}
+                                </span>
+                              </div>
 
-                            <h4 className="text-sm font-semibold flex items-center gap-2 mb-2 text-primary">
-                              <User className="w-4 h-4" />
-                              Player Points
-                            </h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                              {match.selectedPlayers.map((player, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center justify-between p-3 rounded-lg border bg-card/50"
+                              {played ? (
+                                <Badge
+                                  variant="outline"
+                                  className="bg-primary/10 ml-auto md:ml-2"
                                 >
+                                  <Trophy className="w-3 h-3 mr-1 text-amber-500" />
+                                  {match.matchPoints} pts
+                                </Badge>
+                              ) : (
+                                <Badge
+                                  variant="outline"
+                                  className="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 ml-auto md:ml-2"
+                                >
+                                  <AlertCircle className="w-3 h-3 mr-1" />
+                                  Not Played
+                                </Badge>
+                              )}
+
+                              {played && (
+                                <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180 hidden md:block" />
+                              )}
+                            </div>
+                          </div>
+                        </AccordionTrigger>
+
+                        {played && (
+                          <AccordionContent>
+                            <div className="px-4 pt-2 pb-4">
+                              <div className="mb-4">
+                                <h4 className="text-sm font-semibold flex items-center gap-2 mb-2 text-primary">
+                                  <Users className="w-4 h-4" />
+                                  Team Points
+                                </h4>
+                                <div className="flex items-center justify-between p-3 rounded-lg border bg-card/50">
                                   <div className="flex items-center gap-2">
                                     <Avatar className="w-8 h-8 border">
                                       <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">
-                                        {player.playerName
-                                          .split(" ")
-                                          .map((n) => n[0])
-                                          .join("")}
+                                        {match?.selectedTeamName
+                                          ? match.selectedTeamName
+                                          : "TM"}
                                       </AvatarFallback>
                                     </Avatar>
                                     <div>
                                       <p className="text-sm font-medium">
-                                        {player.playerName}
+                                        {match.selectedTeamName}
                                       </p>
                                     </div>
                                   </div>
@@ -282,18 +251,63 @@ export default function UserPointsHistoryPage() {
                                     className="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800"
                                   >
                                     <Star className="w-3 h-3 mr-1 text-amber-500" />
-                                    {player.playerPoints} pts
+                                    {match.teamPoints} pts
                                   </Badge>
                                 </div>
-                              ))}
+                              </div>
+
+                              <h4 className="text-sm font-semibold flex items-center gap-2 mb-2 text-primary">
+                                <User className="w-4 h-4" />
+                                Player Points
+                              </h4>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {match.selectedPlayers.map((player, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-center justify-between p-3 rounded-lg border bg-card/50"
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <Avatar className="w-8 h-8 border">
+                                        <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">
+                                          {player.playerName
+                                            .split(" ")
+                                            .map((n) => n[0])
+                                            .join("")}
+                                        </AvatarFallback>
+                                      </Avatar>
+                                      <div>
+                                        <p className="text-sm font-medium">
+                                          {player.playerName}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <Badge
+                                      variant="outline"
+                                      className="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800"
+                                    >
+                                      <Star className="w-3 h-3 mr-1 text-amber-500" />
+                                      {player.playerPoints} pts
+                                    </Badge>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        </AccordionContent>
-                      )}
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
+                          </AccordionContent>
+                        )}
+                      </AccordionItem>
+                    );
+                  })}
+                </Accordion>
+              ) : (
+                <Card className="mb-8">
+                  <CardContent className="flex flex-col justify-center items-center p-6 gap-2">
+                    <AlertCircle className="h-8 w-8 text-muted-foreground" />
+                    <p className="text-muted-foreground">
+                      No recent matches available
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
             </CardContent>
           </Card>
         </>

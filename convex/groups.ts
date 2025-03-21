@@ -196,97 +196,98 @@ export const getGroupDetails = query({
     groupId: v.id("groups"),
   },
   handler: async (ctx, args) => {
-    // Fetch group details
+    // 1. Fetch group
     const group = await ctx.db.get(args.groupId);
     if (!group) {
       throw new Error("Group not found");
     }
 
-    // Fetch the authenticated user's ID
+    // 2. Get current user
     const userId = await getAuthUserId(ctx);
-
-    // Check if the current user is the owner of the group
     const isOwner = userId === group.createdBy;
 
-    // Fetch all members of the group
+    // 3. Fetch all group members
     const userGroups = await ctx.db
       .query("user_groups")
       .withIndex("by_groupId", (q) => q.eq("groupId", args.groupId))
       .collect();
 
-    // Get the current date and time in ISO format
+    // 4. Fetch the most recent past match
     const now = new Date().toISOString();
-
-    // Fetch the most recent past match
     const pastRecentMatch = await ctx.db
       .query("matches")
-      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now)) // lt = less than (past matches)
-      .order("desc") // Sort by datetimeUtc in descending order
-      .first(); // Get the first match (most recent past match)
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc")
+      .first();
 
-    if (!pastRecentMatch) {
-      throw new Error("No past matches found");
+    // 5. Prepare team data if match exists
+    let matchInfo = null;
+    if (pastRecentMatch) {
+      const homeTeam = await ctx.db.get(
+        pastRecentMatch.homeTeamId as Id<"teams">
+      );
+      const awayTeam = await ctx.db.get(
+        pastRecentMatch.oppTeamId as Id<"teams">
+      );
+
+      if (homeTeam && awayTeam) {
+        matchInfo = {
+          matchId: pastRecentMatch._id,
+          matchNumber: pastRecentMatch.matchNumber,
+          datetimeUtc: pastRecentMatch.datetimeUtc,
+          venue: pastRecentMatch.venue,
+          homeTeam,
+          awayTeam,
+        };
+      }
     }
 
-    // Fetch home and away team details for the past match
-    const homeTeam = await ctx.db.get(
-      pastRecentMatch.homeTeamId as Id<"teams">
-    );
-    const awayTeam = await ctx.db.get(pastRecentMatch.oppTeamId as Id<"teams">);
-
-    if (!homeTeam || !awayTeam) {
-      throw new Error("Team details not found");
-    }
-
-    // Fetch details of each member, their total points, and points for the past recent match
+    // 6. Gather member data: user info, total points, and past match points (if match exists)
     let members = await Promise.all(
-      userGroups.map(async (userGroup) => {
-        const user = await ctx.db.get(userGroup.userId);
-        if (!user) {
-          throw new Error("User not found");
-        }
+      userGroups.map(async ({ userId: memberId }) => {
+        const user = await ctx.db.get(memberId);
+        if (!user) return null;
 
-        // Fetch total points for the user
         const totalPointsEntry = await ctx.db
           .query("userTotalPoints")
-          .withIndex("userId", (q) => q.eq("userId", userGroup.userId))
+          .withIndex("userId", (q) => q.eq("userId", memberId))
           .unique();
 
-        // Fetch points for the past recent match
-        const pastMatchPointsEntry = await ctx.db
-          .query("userMatchPoints")
-          .withIndex("userId_matchId", (q) =>
-            q.eq("userId", userGroup.userId).eq("matchId", pastRecentMatch._id)
-          )
-          .unique();
+        let matchPoints = 0;
+        if (matchInfo) {
+          const pastMatchPointsEntry = await ctx.db
+            .query("userMatchPoints")
+            .withIndex("userId_matchId", (q) =>
+              q.eq("userId", memberId).eq("matchId", matchInfo.matchId)
+            )
+            .unique();
+
+          matchPoints = pastMatchPointsEntry?.points ?? 0;
+        }
 
         return {
           userId: user._id,
-          isUser: user._id == userId,
+          isUser: user._id === userId,
           name: user.name || "Unknown",
           email: user.email || "",
-          image: user.image || "", // Assuming the `users` table has an `image` field
-          totalPoints: totalPointsEntry ? totalPointsEntry.totalPoints : 0,
-          matchPoints: pastMatchPointsEntry ? pastMatchPointsEntry.points : 0,
+          image: user.image || "",
+          totalPoints: totalPointsEntry?.totalPoints ?? 0,
+          matchPoints,
         };
       })
     );
 
-    // Return group details with members, their total points, and past recent match points
+    // Remove nulls safely
+    members = members.filter((m): m is NonNullable<typeof m> => m !== null);
+
+    // 7. Final response
     return {
       groupId: group._id,
       groupName: group.name,
       groupCode: group.code,
-      isOwner, // Flag to indicate if the current user is the group owner
-      pastRecentMatch: {
-        matchId: pastRecentMatch._id,
-        matchNumber: pastRecentMatch.matchNumber,
-        datetimeUtc: pastRecentMatch.datetimeUtc,
-        venue: pastRecentMatch.venue,
-        homeTeam: homeTeam,
-        awayTeam: awayTeam,
-      },
-      members, // Array of members with their details, total points, and past match points
+      isOwner,
+      pastRecentMatch: matchInfo, // null if no valid past match
+      members: members ?? [],
     };
   },
 });

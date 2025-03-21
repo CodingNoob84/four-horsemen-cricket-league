@@ -27,6 +27,8 @@ export default function UsersPage() {
   // Global Leaderboard (only fetch if no search query)
   const users = useQuery(api.userspoints.globalLeaderBoard);
 
+  console.log("users", users);
+
   // Search Users (only runs when `debouncedQuery` is non-empty)
   const searchedUsers = useQuery(
     api.userspoints.searchUserWithPoints,

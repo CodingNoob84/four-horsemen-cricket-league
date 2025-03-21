@@ -1,20 +1,13 @@
 "use client";
 
 import { PastMatches } from "@/components/admin/admin-matches";
-import { Badge } from "@/components/ui/badge";
-import { Shield } from "lucide-react";
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
 export default function AdminMatchesPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="px-4 mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Match Management</h1>
-          <Badge className="bg-red-100 text-red-800 border border-red-300 px-3 py-1 flex items-center">
-            <Shield className="w-4 h-4 mr-1" />
-            Admin
-          </Badge>
-        </div>
+        <Breadcrumbs title="MatchManagement" isAdmin={true} backLink="/admin" />
 
         <div>
           <PastMatches />

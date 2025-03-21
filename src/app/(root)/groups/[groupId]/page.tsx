@@ -14,6 +14,7 @@ export default function GroupDetailsPage() {
   const group = useQuery(api.groups.getGroupDetails, {
     groupId: groupId as Id<"groups">,
   });
+  console.log("group", group);
   const pastMatches = useQuery(api.matches.pastMatchesSelect);
 
   if (group == undefined) {
@@ -23,9 +24,13 @@ export default function GroupDetailsPage() {
   return (
     <main className="container mx-auto px-4 py-6">
       <Breadcrumbs title="back to Groups" isAdmin={false} backLink="/groups" />
-      <GroupHeader group={group} />
 
-      {pastMatches && <GroupTabs group={group} pastMatches={pastMatches} />}
+      {group && (
+        <>
+          <GroupHeader group={group} />
+          {pastMatches && <GroupTabs group={group} pastMatches={pastMatches} />}
+        </>
+      )}
     </main>
   );
 }

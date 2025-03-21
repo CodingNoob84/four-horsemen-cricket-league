@@ -97,8 +97,8 @@ export interface Group {
     venue: string;
     homeTeam: Team;
     awayTeam: Team;
-  };
-  members: {
+  } | null;
+  members: ({
     userId: Id<"users">;
     isUser: boolean;
     name: string;
@@ -106,5 +106,5 @@ export interface Group {
     image: string;
     totalPoints: number;
     matchPoints: number;
-  }[];
+  } | null)[];
 }

@@ -1,7 +1,7 @@
 import { usePastMatches, useUpcomingMatches } from "@/hooks/convex-hooks";
 import { MatchesgrpByDate } from "@/lib/utils";
 import { UpcomingMatchByUser } from "@/types";
-import { MapPin } from "lucide-react";
+import { AlertCircle, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { LoadingScreen } from "../common/loading-screen";
@@ -98,6 +98,17 @@ export const PastMatches = () => {
   console.log("past", matches);
   if (loading) {
     return <LoadingScreen />;
+  }
+
+  if (matches.length === 0) {
+    return (
+      <Card className="mb-8">
+        <CardContent className="flex flex-col justify-center items-center p-6 gap-2">
+          <AlertCircle className="h-8 w-8 text-muted-foreground" />
+          <p className="text-muted-foreground">No recent matches available</p>
+        </CardContent>
+      </Card>
+    );
   }
   const groupedMatches = matches ? MatchesgrpByDate(matches) : [];
 

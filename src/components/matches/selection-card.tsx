@@ -111,8 +111,12 @@ export const SelectionCard = ({
     <Card>
       <CardHeader>
         <CardTitle className="text-lg">
-          Selected Players ({selectedPlayers.length}/4)
+          Selected Team ({selectedTeam == null ? 0 : 1}) and Players (
+          {selectedPlayers.length}/4)
         </CardTitle>
+        <div className="text-xs italic">
+          Please select your winning team and four top performing players
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <div className="flex flex-row gap-5 justify-between items-center">
@@ -180,7 +184,7 @@ export const SelectionCard = ({
 
           {selectedPlayers.length === 0 && (
             <div className="text-center py-8 text-muted-foreground">
-              No players selected yet
+              No players selected yet.. Please select players from below teams
             </div>
           )}
           <div className="flex flex-row gap-4">

@@ -385,7 +385,7 @@ export const recentMatchPoints = query({
       .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
       .order("desc") // Get the latest past match
       .first();
-
+    console.log("recent", recentMatch);
     if (!recentMatch) {
       return {
         hasMatch: false,

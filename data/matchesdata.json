@@ -1,6 +1,6 @@
 [
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-22T14:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -9,7 +9,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-23T10:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -18,7 +18,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-23T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -27,7 +27,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-24T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -36,7 +36,7 @@
     "venue": "Visakhapatnam"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-25T14:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -45,7 +45,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-26T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -54,7 +54,7 @@
     "venue": "Guwahati"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-27T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -63,7 +63,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-28T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -72,7 +72,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-29T14:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -81,7 +81,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-30T10:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -90,7 +90,7 @@
     "venue": "Visakhapatnam"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-30T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -99,7 +99,7 @@
     "venue": "Guwahati"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-03-31T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -108,7 +108,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-01T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -117,7 +117,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-02T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -126,7 +126,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-03T14:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -135,7 +135,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-04T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -144,7 +144,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-05T10:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -153,7 +153,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-05T14:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -162,7 +162,7 @@
     "venue": "New Chandigarh"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-06T10:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -171,7 +171,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-06T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -180,7 +180,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-07T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -189,7 +189,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-08T14:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -198,7 +198,7 @@
     "venue": "New Chandigarh"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-09T14:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -207,7 +207,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-10T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -216,7 +216,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-11T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -225,7 +225,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-12T10:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -234,7 +234,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-12T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -243,7 +243,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-13T10:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -252,7 +252,7 @@
     "venue": "Jaipur"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-13T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -261,7 +261,7 @@
     "venue": "Delhi"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-14T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -270,7 +270,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-15T14:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -279,7 +279,7 @@
     "venue": "New Chandigarh"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-16T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -288,7 +288,7 @@
     "venue": "Delhi"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-17T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -297,7 +297,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-18T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -306,7 +306,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-19T10:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -315,7 +315,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-19T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -324,7 +324,7 @@
     "venue": "Jaipur"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-20T10:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -333,7 +333,7 @@
     "venue": "New Chandigarh"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-20T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -342,7 +342,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-21T14:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -351,7 +351,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-22T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -360,7 +360,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-23T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -369,7 +369,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-24T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -378,7 +378,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-25T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -387,7 +387,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-26T14:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -396,7 +396,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-27T10:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -405,7 +405,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-27T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -414,7 +414,7 @@
     "venue": "Delhi"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-28T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -423,7 +423,7 @@
     "venue": "Jaipur"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-29T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -432,7 +432,7 @@
     "venue": "Delhi"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-04-30T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -441,7 +441,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-01T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -450,7 +450,7 @@
     "venue": "Jaipur"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-02T14:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -459,7 +459,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-03T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -468,7 +468,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-04T10:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -477,7 +477,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-04T14:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -486,7 +486,7 @@
     "venue": "Dharamsala"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-05T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -495,7 +495,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-06T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -504,7 +504,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-07T14:00:00Z",
     "homeTeamId": "j579cjyz80bs4zwr1p9xpdn9mh7b375s",
     "isLeague": true,
@@ -513,7 +513,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-08T14:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -522,7 +522,7 @@
     "venue": "Dharamsala"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-09T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -531,7 +531,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-10T14:00:00Z",
     "homeTeamId": "j57ax4fxj77zkw31jbz09ytddn7b23bb",
     "isLeague": true,
@@ -540,7 +540,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-11T10:00:00Z",
     "homeTeamId": "j57db10q0mdmr2ferdr3ca37097b3atj",
     "isLeague": true,
@@ -549,7 +549,7 @@
     "venue": "Dharamsala"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-11T14:00:00Z",
     "homeTeamId": "j57apcry8xgnpkdcmynkg5q7ys7b2msx",
     "isLeague": true,
@@ -558,7 +558,7 @@
     "venue": "Delhi"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-12T14:00:00Z",
     "homeTeamId": "j5795d3ksxwjyjt78n8v4ygah97b3xqq",
     "isLeague": true,
@@ -567,7 +567,7 @@
     "venue": "Chennai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-13T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -576,7 +576,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-14T14:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -585,7 +585,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-15T14:00:00Z",
     "homeTeamId": "j575kf3w1b1vqnfq4mbt8xd69d7b228w",
     "isLeague": true,
@@ -594,7 +594,7 @@
     "venue": "Mumbai"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-16T14:00:00Z",
     "homeTeamId": "j57384jz4rr08q9mak5txpbad57b3sty",
     "isLeague": true,
@@ -603,7 +603,7 @@
     "venue": "Jaipur"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-17T14:00:00Z",
     "homeTeamId": "j57ay3rewe9659h381yvrcg0tx7b3k70",
     "isLeague": true,
@@ -612,7 +612,7 @@
     "venue": "Bengaluru"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-18T10:00:00Z",
     "homeTeamId": "j57f9a7tt7casty72napyt29wx7b3v1n",
     "isLeague": true,
@@ -621,7 +621,7 @@
     "venue": "Ahmedabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-18T14:00:00Z",
     "homeTeamId": "j57czcxnz6298d28r2bh2s2cds7b2a5p",
     "isLeague": true,
@@ -630,7 +630,7 @@
     "venue": "Lucknow"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-20T14:00:00Z",
     "homeTeamId": "",
     "isLeague": false,
@@ -639,7 +639,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-21T14:00:00Z",
     "homeTeamId": "",
     "isLeague": false,
@@ -648,7 +648,7 @@
     "venue": "Hyderabad"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-23T14:00:00Z",
     "homeTeamId": "",
     "isLeague": false,
@@ -657,7 +657,7 @@
     "venue": "Kolkata"
   },
   {
-    "canSubmit": false,
+    "canSubmit": true,
     "datetimeUtc": "2025-05-25T14:00:00Z",
     "homeTeamId": "",
     "isLeague": false,

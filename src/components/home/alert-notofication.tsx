@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 
 export function AlertNotification() {
   const [visible, setVisible] = useState(true);
-
-  // Show alert every 5 minutes (300000 ms)
   useEffect(() => {
     if (!visible) {
       const timer = setTimeout(() => {
@@ -19,21 +17,6 @@ export function AlertNotification() {
       return () => clearTimeout(timer);
     }
   }, [visible]);
-
-  // For demo purposes, show alert every 30 seconds instead of 5 minutes
-  // Comment out the above useEffect and uncomment this one for testing
-  /*
-  useEffect(() => {
-    if (!visible) {
-      const timer = setTimeout(() => {
-        setVisible(true)
-        setCounter(prev => prev + 1)
-      }, 30000) // 30 seconds for testing
-      
-      return () => clearTimeout(timer)
-    }
-  }, [visible])
-  */
 
   return (
     <AnimatePresence>
@@ -48,12 +31,15 @@ export function AlertNotification() {
             <div className="flex items-start justify-between">
               <div>
                 <AlertTitle className="text-red-800 font-bold">
-                  IPL 2025 Starts March 22!
+                  How to Play
                 </AlertTitle>
                 <AlertDescription className="text-red-700">
-                  We&apos;ve added a few dummy matches for you to play with
-                  until the real tournament begins. Please report any bugs or
-                  improvements you&apos;d like to see!
+                  &quot;Please click on a match card under the Upcoming Matches
+                  section. This will open a new page where you can select four
+                  top-performing players, choose one as your captain, and pick
+                  the team you believe will win. Your points will be calculated
+                  based on the players&apos; performance and the match
+                  result.&quot;
                 </AlertDescription>
               </div>
               <Button

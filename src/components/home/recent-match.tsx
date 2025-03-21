@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export const RecentMatch = () => {
   const recentMatch = useQuery(api.userspoints.recentMatchPoints);
-  console.log("recentMatch", recentMatch);
+  //console.log("recentMatch", recentMatch);
   if (recentMatch === undefined) {
     return (
       <div className="p-2">

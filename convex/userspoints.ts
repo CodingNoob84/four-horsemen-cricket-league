@@ -387,7 +387,20 @@ export const recentMatchPoints = query({
       .first();
 
     if (!recentMatch) {
-      throw new Error("No recent match available");
+      return {
+        hasMatch: false,
+        hasMatchLive: false,
+        matchId: null,
+        datetimeUtc: null,
+        homeTeamName: null,
+        homeTeamShortForm: null,
+        awayTeamName: null,
+        awayTeamShortForm: null,
+        team: null,
+        players: [],
+        matchPoints: 0,
+        teamPoints: 0,
+      };
     }
 
     // Fetch home and away team details

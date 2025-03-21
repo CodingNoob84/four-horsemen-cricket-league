@@ -147,48 +147,6 @@ export function GroupTabs({
               ) : (
                 <div>No Players</div>
               )}
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-4 font-medium">Rank</th>
-                    <th className="text-left p-4 font-medium">User</th>
-                    <th className="text-right p-4 font-medium">Total Points</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {group.members
-                    ?.filter((m): m is NonNullable<typeof m> => m !== null)
-                    .slice()
-                    .sort((a, b) => b.totalPoints - a.totalPoints) // Sort by totalPoints (Descending)
-                    .map((player, index) => (
-                      <tr
-                        key={player.userId}
-                        className={`border-b hover:bg-muted/50 ${
-                          player.isUser ? "bg-primary/10" : ""
-                        }`}
-                      >
-                        <td className="p-4 font-medium">#{index + 1}</td>
-                        <td className="p-4 flex items-center gap-2">
-                          <Avatar className="h-8 w-8">
-                            {player.image ? (
-                              <AvatarImage
-                                src={player.image}
-                                alt={player.name}
-                              />
-                            ) : null}
-                            <AvatarFallback>
-                              {player.name.charAt(0)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span>{player.name}</span>
-                        </td>
-                        <td className="p-4 text-right font-bold">
-                          {player.totalPoints}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
             </div>
           </CardContent>
         </Card>

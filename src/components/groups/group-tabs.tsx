@@ -5,6 +5,7 @@ import { formatLocalDateTime } from "@/lib/utils";
 import { Group, Team } from "@/types";
 import { useQuery } from "convex/react"; // Import convex query
 import { AlertCircle, Calendar, Trophy } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "../../../convex/_generated/api"; // Import API
 import { Id } from "../../../convex/_generated/dataModel";
@@ -115,30 +116,35 @@ export function GroupTabs({
                       ?.filter((m): m is NonNullable<typeof m> => m !== null)
                       .slice()
                       .sort((a, b) => b.totalPoints - a.totalPoints) // Sort by totalPoints (Descending)
-                      .map((player, index) => (
+                      .map((user, index) => (
                         <tr
-                          key={player?.userId}
+                          key={user?.userId}
                           className={`border-b hover:bg-muted/50 ${
-                            player?.isUser ? "bg-primary/10" : ""
+                            user?.isUser ? "bg-primary/10" : ""
                           }`}
                         >
                           <td className="p-4 font-medium">#{index + 1}</td>
                           <td className="p-4 flex items-center gap-2">
-                            <Avatar className="h-8 w-8">
-                              {player?.image ? (
-                                <AvatarImage
-                                  src={player.image}
-                                  alt={player.name}
-                                />
-                              ) : null}
-                              <AvatarFallback>
-                                {player?.name.charAt(0)}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span>{player?.name}</span>
+                            <Link
+                              href={`/users/${user.userId}`}
+                              className="flex items-center gap-3"
+                            >
+                              <Avatar className="h-8 w-8">
+                                {user?.image ? (
+                                  <AvatarImage
+                                    src={user.image}
+                                    alt={user.name}
+                                  />
+                                ) : null}
+                                <AvatarFallback>
+                                  {user?.name.charAt(0)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <span>{user?.name}</span>
+                            </Link>
                           </td>
                           <td className="p-4 text-right font-bold">
-                            {player?.totalPoints}
+                            {user?.totalPoints}
                           </td>
                         </tr>
                       ))}
@@ -219,30 +225,35 @@ export function GroupTabs({
                         {matchPoints.members
                           .slice()
                           .sort((a, b) => b.matchPoints - a.matchPoints) // Sort by matchPoints (Descending)
-                          .map((player, index) => (
+                          .map((user, index) => (
                             <tr
-                              key={player.userId}
+                              key={user.userId}
                               className={`border-b hover:bg-muted/50 ${
-                                player.isUser ? "bg-primary/10" : ""
+                                user.isUser ? "bg-primary/10" : ""
                               }`}
                             >
                               <td className="p-4 font-medium">#{index + 1}</td>
                               <td className="p-4 flex items-center gap-2">
-                                <Avatar className="h-8 w-8">
-                                  {player.image ? (
-                                    <AvatarImage
-                                      src={player.image}
-                                      alt={player.name}
-                                    />
-                                  ) : null}
-                                  <AvatarFallback>
-                                    {player.name.charAt(0)}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <span>{player.name}</span>
+                                <Link
+                                  href={`/users/${user.userId}`}
+                                  className="flex items-center gap-3"
+                                >
+                                  <Avatar className="h-8 w-8">
+                                    {user.image ? (
+                                      <AvatarImage
+                                        src={user.image}
+                                        alt={user.name}
+                                      />
+                                    ) : null}
+                                    <AvatarFallback>
+                                      {user.name.charAt(0)}
+                                    </AvatarFallback>
+                                  </Avatar>
+                                  <span>{user.name}</span>
+                                </Link>
                               </td>
                               <td className="p-4 text-right font-bold">
-                                {player.matchPoints}
+                                {user.matchPoints}
                               </td>
                             </tr>
                           ))}

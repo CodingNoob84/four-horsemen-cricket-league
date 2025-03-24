@@ -92,9 +92,13 @@ export const fetchPastMatchesUserPoints = query({
         // Fetch selected players' points
         const selectedPlayersWithPoints = await Promise.all(
           fantasySelection.selectedPlayers.map(async (playerId) => {
+            const isCaptain = fantasySelection.captain === playerId;
             const playerDetails = await ctx.db.get(playerId);
-            const playerPoints =
+            let playerPoints =
               matchPlayerPointsMap.get(match._id)?.get(playerId) || 0;
+            if (isCaptain) {
+              playerPoints = playerPoints * 2;
+            }
             return {
               playerId,
               playerName: playerDetails?.name || "Unknown Player",
@@ -506,7 +510,10 @@ export const recentMatchPoints = query({
       awayTeamShortForm: awayTeam.shortForm,
       team: {
         teamId: fantasySelection.selectedTeam,
-        teamName: homeTeam.teamName, // Assuming selected team is home team
+        teamName:
+          fantasySelection.selectedTeam === homeTeam._id
+            ? homeTeam.teamName
+            : awayTeam.teamName,
         teamPoints,
       },
       players: playersWithPoints,
@@ -808,9 +815,14 @@ export const fetchUserPointsById = query({
         // Fetch selected players' points
         const selectedPlayersWithPoints = await Promise.all(
           fantasySelection.selectedPlayers.map(async (playerId) => {
+            const isCaptain = fantasySelection.captain === playerId;
             const playerDetails = await ctx.db.get(playerId);
-            const playerPoints =
+            let playerPoints =
               matchPlayerPointsMap.get(match._id)?.get(playerId) || 0;
+
+            if (isCaptain) {
+              playerPoints *= 2; // Double the points for the captain
+            }
             return {
               playerId,
               playerName: playerDetails?.name || "Unknown Player",

@@ -1,5 +1,6 @@
 import { v } from "convex/values";
-import { internalMutation, mutation } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
+import { internalMutation, mutation, query } from "./_generated/server";
 
 export const submitTeamData = mutation({
   args: {
@@ -193,5 +194,94 @@ export const updateUserPoints = internalMutation({
       .query("fantasyUsers")
       .withIndex("matchId", (q) => q.eq("matchId", matchId))
       .collect();
+  },
+});
+
+export const getMatchDataById = query({
+  args: { matchId: v.id("matches") },
+  handler: async (ctx, { matchId }) => {
+    // Fetch match details by matchId
+    const match = await ctx.db.get(matchId);
+    if (!match) {
+      throw new Error("Match not found");
+    }
+
+    // Fetch home team and away team details directly
+    const homeTeam = await ctx.db.get(match.homeTeamId as Id<"teams">);
+    const awayTeam = await ctx.db.get(match.oppTeamId as Id<"teams">);
+
+    // Fetch players for home and away teams
+    const homeTeamPlayers = await ctx.db
+      .query("players")
+      .filter((q) => q.eq(q.field("teamId"), match.homeTeamId))
+      .collect();
+
+    const awayTeamPlayers = await ctx.db
+      .query("players")
+      .filter((q) => q.eq(q.field("teamId"), match.oppTeamId))
+      .collect();
+
+    return {
+      teams: [
+        {
+          teamId: homeTeam?._id,
+          teamName: homeTeam?.teamName,
+        },
+        {
+          teamId: awayTeam?._id,
+          teamName: awayTeam?.teamName,
+        },
+      ],
+      homeTeamPlayers,
+      awayTeamPlayers,
+    };
+  },
+});
+
+export const updateMultipleCricbuzzIds = mutation({
+  args: {
+    data: v.array(
+      v.object({
+        matchNumber: v.number(),
+        cricbuzzId: v.string(),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    for (const { matchNumber, cricbuzzId } of args.data) {
+      const match = await ctx.db
+        .query("matches")
+        .filter((q) => q.eq(q.field("matchNumber"), matchNumber))
+        .first();
+
+      if (!match) {
+        console.warn(`Match not found for matchNumber: ${matchNumber}`);
+        continue;
+      }
+
+      await ctx.db.patch(match._id, {
+        cricbuzzId,
+      });
+    }
+
+    return { status: "done", updated: args.data.length };
+  },
+});
+
+export const getMatchFiveHrsAgo = query({
+  handler: async (ctx) => {
+    const now = new Date().toISOString();
+    console.log("now", now);
+    const matches = await ctx.db
+      .query("matches")
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc")
+      .take(1);
+
+    if (matches.length === 0) {
+      return { match: null };
+    }
+
+    return { match: matches[0] };
   },
 });

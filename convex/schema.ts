@@ -32,6 +32,7 @@ const schema = defineSchema({
     submittedBy: v.optional(v.id("users")),
     submittedAt: v.optional(v.string()),
     canSubmit: v.boolean(),
+    cricbuzzId: v.optional(v.string()),
   }).index("by_datetime", ["datetimeUtc"]),
   players: defineTable({
     isIndian: v.boolean(),

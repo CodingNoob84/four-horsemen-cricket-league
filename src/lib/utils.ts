@@ -152,3 +152,18 @@ export const formatCreationTime = (timestamp: number) => {
     hour12: true, // Display time in AM/PM format
   });
 };
+
+export const getOrdinal = (num: number) => {
+  const suffixes = ["th", "st", "nd", "rd"];
+  const remainder = num % 10;
+  const suffix =
+    remainder === 1 && num !== 11
+      ? suffixes[1]
+      : remainder === 2 && num !== 12
+        ? suffixes[2]
+        : remainder === 3 && num !== 13
+          ? suffixes[3]
+          : suffixes[0];
+
+  return `${num}${suffix}`;
+};

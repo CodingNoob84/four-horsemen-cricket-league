@@ -12,9 +12,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { api } from "../../../convex/_generated/api";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export const MatchLeaderboard = () => {
   const match = useQuery(api.userspoints.recentMatchLeaderboard);
+  const players = useQuery(api.userspoints.recentMatchPlayerLeaderboard);
+  console.log("players", players);
 
   if (match == undefined) {
     return (
@@ -27,6 +30,7 @@ export const MatchLeaderboard = () => {
   // Extract top 10 users
   const top10Users = match.usertable.slice(0, 10);
   const currentUser = match.usertable.find((user) => user.isCurrentUser);
+  const top10Players = players?.usertable;
 
   return (
     <>
@@ -71,131 +75,215 @@ export const MatchLeaderboard = () => {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  {/* Case: No users in leaderboard */}
-                  {top10Users.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center p-6">
-                      <AlertTriangle className="h-8 w-8 text-yellow-600 mb-2" />
-                      <span className="text-lg font-semibold">
-                        Points are yet to Update
-                      </span>
-                      <span className="text-sm text-gray-500 text-center">
-                        We are currently updating the leaderboard. Please check
-                        back soon for the latest player points.
-                      </span>
-                    </div>
-                  ) : (
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left p-4 font-medium">Rank</th>
-                          <th className="text-left p-4 font-medium">User</th>
-                          <th className="text-right p-4 font-medium">Points</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {top10Users.map((user) => (
-                          <tr
-                            key={user.userId}
-                            className={`border-b hover:bg-muted/50 ${
-                              user.isCurrentUser ? "bg-primary/10" : ""
-                            }`}
-                          >
-                            <td className="p-4 font-medium text-sm">
-                              #{user.rank}
-                            </td>
-                            <td className="p-4">
-                              <Link
-                                href={`/users/${user.userId}`}
-                                className="flex items-center gap-3"
+                <Tabs defaultValue="users" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="users">Users</TabsTrigger>
+                    <TabsTrigger value="players">Players</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="users">
+                    <div className="overflow-x-auto">
+                      {/* Case: No users in leaderboard */}
+                      {top10Users.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center p-6">
+                          <AlertTriangle className="h-8 w-8 text-yellow-600 mb-2" />
+                          <span className="text-lg font-semibold">
+                            Points are yet to Update
+                          </span>
+                          <span className="text-sm text-gray-500 text-center">
+                            We are currently updating the leaderboard. Please
+                            check back soon for the latest player points.
+                          </span>
+                        </div>
+                      ) : (
+                        <table className="w-full">
+                          <thead>
+                            <tr className="border-b">
+                              <th className="text-left p-4 font-medium">
+                                Rank
+                              </th>
+                              <th className="text-left p-4 font-medium">
+                                User
+                              </th>
+                              <th className="text-right p-4 font-medium">
+                                Points
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {top10Users.map((user) => (
+                              <tr
+                                key={user.userId}
+                                className={`border-b hover:bg-muted/50 ${
+                                  user.isCurrentUser ? "bg-primary/10" : ""
+                                }`}
                               >
-                                <Avatar className="h-8 w-8 shrink-0">
-                                  <AvatarImage
-                                    src={user.image}
-                                    alt={user.name}
-                                  />
-                                  <AvatarFallback className="text-xs">
-                                    {user.name.charAt(0)}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <div className="flex flex-col">
-                                  <span className="font-bold text-sm truncate max-w-[150px] md:max-w-[200px]">
-                                    {user.name}
-                                    {user.isCurrentUser && (
-                                      <Badge
-                                        variant="outline"
-                                        className="ml-2 text-xs"
-                                      >
-                                        You
-                                      </Badge>
-                                    )}
-                                  </span>
-                                  <span className="text-xs text-muted-foreground truncate max-w-[150px] md:max-w-[200px]">
-                                    {user.email}
-                                  </span>
-                                </div>
-                              </Link>
-                            </td>
-                            <td className="p-4 text-right font-bold text-sm">
-                              {user.matchPoints.toLocaleString()}
-                            </td>
-                          </tr>
-                        ))}
+                                <td className="p-4 font-medium text-sm">
+                                  #{user.rank}
+                                </td>
+                                <td className="p-4">
+                                  <Link
+                                    href={`/users/${user.userId}`}
+                                    className="flex items-center gap-3"
+                                  >
+                                    <Avatar className="h-8 w-8 shrink-0">
+                                      <AvatarImage
+                                        src={user.image}
+                                        alt={user.name}
+                                      />
+                                      <AvatarFallback className="text-xs">
+                                        {user.name.charAt(0)}
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    <div className="flex flex-col">
+                                      <span className="font-bold text-sm truncate max-w-[150px] md:max-w-[200px]">
+                                        {user.name}
+                                        {user.isCurrentUser && (
+                                          <Badge
+                                            variant="outline"
+                                            className="ml-2 text-xs"
+                                          >
+                                            You
+                                          </Badge>
+                                        )}
+                                      </span>
+                                      <span className="text-xs text-muted-foreground truncate max-w-[150px] md:max-w-[200px]">
+                                        {user.email}
+                                      </span>
+                                    </div>
+                                  </Link>
+                                </td>
+                                <td className="p-4 text-right font-bold text-sm">
+                                  {user.matchPoints.toLocaleString()}
+                                </td>
+                              </tr>
+                            ))}
 
-                        {/* Show Gap If Current User is Outside Top 10 */}
-                        {currentUser && currentUser.rank > 10 && (
-                          <>
-                            <tr key="gap" className="border-b">
-                              <td colSpan={3} className="p-2 text-center">
-                                <span className="text-xs text-muted-foreground">
-                                  •••
-                                </span>
-                              </td>
-                            </tr>
-                            <tr
-                              key={currentUser.userId}
-                              className="border-b hover:bg-muted/50 bg-primary/10"
-                            >
-                              <td className="p-4 font-medium text-sm">
-                                #{currentUser.rank}
-                              </td>
-                              <td className="p-4">
-                                <div className="flex items-center gap-3">
-                                  <Avatar className="h-8 w-8 shrink-0">
-                                    <AvatarImage
-                                      src={currentUser.image}
-                                      alt={currentUser.name}
-                                    />
-                                    <AvatarFallback className="text-xs">
-                                      {currentUser.name.charAt(0)}
-                                    </AvatarFallback>
-                                  </Avatar>
-                                  <div className="flex flex-col">
-                                    <span className="font-bold text-sm truncate max-w-[150px] md:max-w-[200px]">
-                                      {currentUser.name}
-                                      <Badge
-                                        variant="outline"
-                                        className="ml-2 text-xs"
-                                      >
-                                        You
-                                      </Badge>
+                            {/* Show Gap If Current User is Outside Top 10 */}
+                            {currentUser && currentUser.rank > 10 && (
+                              <>
+                                <tr key="gap" className="border-b">
+                                  <td colSpan={3} className="p-2 text-center">
+                                    <span className="text-xs text-muted-foreground">
+                                      •••
                                     </span>
-                                    <span className="text-xs text-muted-foreground truncate max-w-[150px] md:max-w-[200px]">
-                                      {currentUser.email}
-                                    </span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="p-4 text-right font-bold text-sm">
-                                {currentUser.matchPoints.toLocaleString()}
-                              </td>
+                                  </td>
+                                </tr>
+                                <tr
+                                  key={currentUser.userId}
+                                  className="border-b hover:bg-muted/50 bg-primary/10"
+                                >
+                                  <td className="p-4 font-medium text-sm">
+                                    #{currentUser.rank}
+                                  </td>
+                                  <td className="p-4">
+                                    <div className="flex items-center gap-3">
+                                      <Avatar className="h-8 w-8 shrink-0">
+                                        <AvatarImage
+                                          src={currentUser.image}
+                                          alt={currentUser.name}
+                                        />
+                                        <AvatarFallback className="text-xs">
+                                          {currentUser.name.charAt(0)}
+                                        </AvatarFallback>
+                                      </Avatar>
+                                      <div className="flex flex-col">
+                                        <span className="font-bold text-sm truncate max-w-[150px] md:max-w-[200px]">
+                                          {currentUser.name}
+                                          <Badge
+                                            variant="outline"
+                                            className="ml-2 text-xs"
+                                          >
+                                            You
+                                          </Badge>
+                                        </span>
+                                        <span className="text-xs text-muted-foreground truncate max-w-[150px] md:max-w-[200px]">
+                                          {currentUser.email}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="p-4 text-right font-bold text-sm">
+                                    {currentUser.matchPoints.toLocaleString()}
+                                  </td>
+                                </tr>
+                              </>
+                            )}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="players">
+                    <div className="overflow-x-auto">
+                      {/* Case: No users in leaderboard */}
+                      {top10Players && top10Players.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center p-6">
+                          <AlertTriangle className="h-8 w-8 text-yellow-600 mb-2" />
+                          <span className="text-lg font-semibold">
+                            Points are yet to Update
+                          </span>
+                          <span className="text-sm text-gray-500 text-center">
+                            We are currently updating the leaderboard. Please
+                            check back soon for the latest player points.
+                          </span>
+                        </div>
+                      ) : (
+                        <table className="w-full">
+                          <thead>
+                            <tr className="border-b">
+                              <th className="text-left p-4 font-medium">
+                                Rank
+                              </th>
+                              <th className="text-left p-4 font-medium">
+                                User
+                              </th>
+                              <th className="text-right p-4 font-medium">
+                                Points
+                              </th>
                             </tr>
-                          </>
-                        )}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
+                          </thead>
+                          <tbody>
+                            {top10Players &&
+                              top10Players.map((user) => (
+                                <tr
+                                  key={user.userId}
+                                  className={`border-b hover:bg-muted/50 `}
+                                >
+                                  <td className="p-4 font-medium text-sm">
+                                    #{user.rank}
+                                  </td>
+                                  <td className="p-4">
+                                    <div className="flex items-center gap-3">
+                                      <Avatar className="h-8 w-8 shrink-0">
+                                        <AvatarImage
+                                          src={user.image}
+                                          alt={user.name}
+                                        />
+                                        <AvatarFallback className="text-xs">
+                                          {user.name.charAt(0)}
+                                        </AvatarFallback>
+                                      </Avatar>
+                                      <div className="flex flex-col">
+                                        <span className="font-bold text-sm truncate max-w-[150px] md:max-w-[200px]">
+                                          {user.name}
+                                        </span>
+                                        <span className="text-xs text-muted-foreground truncate max-w-[150px] md:max-w-[200px]">
+                                          {user.email}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="p-4 text-right font-bold text-sm">
+                                    {user.matchPoints.toLocaleString()}
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </CardContent>
             </Card>
           )}

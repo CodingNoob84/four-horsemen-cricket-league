@@ -44,7 +44,7 @@ export default function UserDetailPage() {
   const userpoints = useQuery(api.userspoints.fetchUserPointsById, {
     userId: userId as Id<"users">,
   });
-  console.log("user", userpoints);
+  console.log("user--->", userpoints);
   if (userpoints == undefined) {
     return <LoadingScreen />;
   }
@@ -255,7 +255,11 @@ export default function UserDetailPage() {
                               {match.selectedPlayers.map((player, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center justify-between p-3 rounded-lg border bg-card/50"
+                                  className={`flex items-center justify-between p-3 rounded-lg border ${
+                                    player.isCaptain
+                                      ? "bg-green-100"
+                                      : "bg-card/50"
+                                  }`}
                                 >
                                   <div className="flex items-center gap-2">
                                     <Avatar className="w-8 h-8 border">
@@ -277,7 +281,7 @@ export default function UserDetailPage() {
                                     className="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800"
                                   >
                                     <Star className="w-3 h-3 mr-1 text-amber-500" />
-                                    {player.playerPoints} pts
+                                    {player.playerPoints}
                                   </Badge>
                                 </div>
                               ))}

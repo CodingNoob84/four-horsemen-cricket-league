@@ -1,6 +1,11 @@
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
-import { internalMutation, mutation, query } from "./_generated/server";
+import {
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 
 export const submitTeamData = mutation({
   args: {
@@ -272,16 +277,74 @@ export const getMatchFiveHrsAgo = query({
   handler: async (ctx) => {
     const now = new Date().toISOString();
     console.log("now", now);
-    const matches = await ctx.db
+    const lastmatch = await ctx.db
       .query("matches")
       .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
       .order("desc")
-      .take(1);
+      .first();
 
-    if (matches.length === 0) {
+    if (lastmatch == null) {
       return { match: null };
     }
+    const homeTeam = await ctx.db.get(lastmatch.homeTeamId as Id<"teams">);
+    const awayTeam = await ctx.db.get(lastmatch.oppTeamId as Id<"teams">);
+    const ordinalnumber = getOrdinal(lastmatch.matchNumber);
+    const matchVersusString = `${homeTeam?.shortForm.toLowerCase()}-vs-${awayTeam?.shortForm.toLowerCase()}-${ordinalnumber}-match-indian-premier-league-2025`;
 
-    return { match: matches[0] };
+    const Url = `https://www.cricbuzz.com/live-cricket-scorecard/${lastmatch.cricbuzzId}/${matchVersusString}`;
+    console.log("url", Url);
+
+    return { match: lastmatch, url: Url };
   },
 });
+
+export const getOrdinal = (num: number) => {
+  const suffixes = ["th", "st", "nd", "rd"];
+  const remainder = num % 10;
+  const suffix =
+    remainder === 1 && num !== 11
+      ? suffixes[1]
+      : remainder === 2 && num !== 12
+        ? suffixes[2]
+        : remainder === 3 && num !== 13
+          ? suffixes[3]
+          : suffixes[0];
+
+  return `${num}${suffix}`;
+};
+
+export const fetchUrl = internalQuery({
+  args: { url: v.string() },
+  handler: async (_, args) => {
+    const res = await fetch("http://localhost:3000/api/scraping", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Url: args.url }),
+    });
+
+    // Check if the response is successful
+    if (!res.ok) {
+      throw new Error("Failed to fetch scraping data");
+    }
+    const result: Scraped = await res.json();
+    // Parse the JSON data and return it
+    return result;
+  },
+});
+
+type Scraped = {
+  winningTeam: string;
+  teamNames: string[];
+  players: ScrapedPlayer[];
+};
+
+type ScrapedPlayer = {
+  id: string;
+  name: string;
+  runs: number;
+  wickets: number;
+  catchCount: number;
+  stumpingsCount: number;
+  runOutsCount: number;
+  possibleNames: string[];
+};

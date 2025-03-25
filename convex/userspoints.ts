@@ -826,6 +826,7 @@ export const fetchUserPointsById = query({
             return {
               playerId,
               playerName: playerDetails?.name || "Unknown Player",
+              isCaptain: isCaptain,
               playerPoints,
             };
           })
@@ -870,6 +871,83 @@ export const fetchUserPointsById = query({
       },
       totalPoints,
       matches,
+    };
+  },
+});
+
+export const recentMatchPlayerLeaderboard = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User not authenticated");
+    }
+
+    const now = new Date().toISOString();
+
+    // Fetch the most recent past match
+    const recentMatch = await ctx.db
+      .query("matches")
+      .withIndex("by_datetime", (q) => q.lt("datetimeUtc", now))
+      .order("desc") // Get the latest past match
+      .first();
+
+    if (!recentMatch) {
+      return {
+        matchId: null,
+        match: "",
+        datetimeUtc: "",
+        usertable: [],
+        currentUserRank: null,
+      };
+    }
+
+    // Fetch home and away team details
+    const homeTeam = await ctx.db.get(recentMatch.homeTeamId as Id<"teams">);
+    const awayTeam = await ctx.db.get(recentMatch.oppTeamId as Id<"teams">);
+
+    if (!homeTeam || !awayTeam) {
+      throw new Error("Team details not found");
+    }
+
+    // Fetch user match points for this match
+    let matchLeaderboardEntries = await ctx.db
+      .query("matchPlayersData")
+      .withIndex("matchId", (q) => q.eq("matchId", recentMatch._id))
+      .collect();
+
+    //order by matchLeaderboardEntries.points from highest to lowest
+    matchLeaderboardEntries = matchLeaderboardEntries.sort(
+      (a, b) => b.playerPoints - a.playerPoints
+    );
+
+    // Map user data & find current user's rank
+    const leaderboard = await Promise.all(
+      matchLeaderboardEntries.map(async (entry, index) => {
+        const player = await ctx.db.get(entry.playerId);
+        if (!player) return null; // Skip if user not found
+
+        const playerRank = index + 1; // Assign rank (1-based index)
+
+        return {
+          rank: playerRank,
+          userId: player._id,
+          name: player.name || "Unknown",
+          email: player.role || "",
+          image: player.profileImage || "",
+          matchPoints: entry.playerPoints,
+        };
+      })
+    );
+
+    // Remove null users & take the top 10
+    const top10 = leaderboard.filter((entry) => entry !== null).slice(0, 10);
+
+    return {
+      matchId: recentMatch._id,
+      match: `${homeTeam.shortForm} vs ${awayTeam.shortForm}`,
+      datetimeUtc: recentMatch.datetimeUtc,
+      usertable: top10,
     };
   },
 });

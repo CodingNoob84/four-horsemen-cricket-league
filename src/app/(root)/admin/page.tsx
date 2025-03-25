@@ -1,7 +1,6 @@
 "use client";
 import { StatCardBlock } from "@/components/admin/stat-cards";
 import { Scheduler } from "@/components/test/scheduler-test";
-import { UpdateCricbuzz } from "@/components/test/update-test";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -16,7 +15,6 @@ export default function AdminPage() {
         <Button asChild>
           <Link href="/admin/bulkdata">Web Scraping</Link>
         </Button>
-        <UpdateCricbuzz />
         <Scheduler />
       </div>
     </div>

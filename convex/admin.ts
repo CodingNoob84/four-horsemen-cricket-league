@@ -1,11 +1,6 @@
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
-import {
-  internalMutation,
-  internalQuery,
-  mutation,
-  query,
-} from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 
 export const submitTeamData = mutation({
   args: {
@@ -125,6 +120,7 @@ export const submitBulkPlayerData = mutation({
     playersData: v.array(
       v.object({
         playerId: v.id("players"),
+        playerName: v.string(),
         isPlayed: v.boolean(),
         runs: v.number(),
         wickets: v.number(),
@@ -273,7 +269,7 @@ export const updateMultipleCricbuzzIds = mutation({
   },
 });
 
-export const getMatchFiveHrsAgo = query({
+export const getCricbuzzUrl = query({
   handler: async (ctx) => {
     const now = new Date().toISOString();
     console.log("now", now);
@@ -284,17 +280,58 @@ export const getMatchFiveHrsAgo = query({
       .first();
 
     if (lastmatch == null) {
-      return { match: null };
+      return {
+        match: null,
+        homeTeam: null,
+        awayTeam: null,
+        teams: [],
+        url: "",
+        homeTeamPlayers: [],
+        awayTeamPlayers: [],
+      };
     }
     const homeTeam = await ctx.db.get(lastmatch.homeTeamId as Id<"teams">);
     const awayTeam = await ctx.db.get(lastmatch.oppTeamId as Id<"teams">);
+
+    const homeTeamPlayers = await ctx.db
+      .query("players")
+      .filter((q) =>
+        q.eq(q.field("teamId"), lastmatch.homeTeamId as Id<"teams">)
+      )
+      .collect();
+
+    const awayTeamPlayers = await ctx.db
+      .query("players")
+      .filter((q) =>
+        q.eq(q.field("teamId"), lastmatch.oppTeamId as Id<"teams">)
+      )
+      .collect();
     const ordinalnumber = getOrdinal(lastmatch.matchNumber);
     const matchVersusString = `${homeTeam?.shortForm.toLowerCase()}-vs-${awayTeam?.shortForm.toLowerCase()}-${ordinalnumber}-match-indian-premier-league-2025`;
 
     const Url = `https://www.cricbuzz.com/live-cricket-scorecard/${lastmatch.cricbuzzId}/${matchVersusString}`;
     console.log("url", Url);
 
-    return { match: lastmatch, url: Url };
+    const teams = [
+      {
+        teamId: homeTeam?._id,
+        teamName: homeTeam?.teamName,
+      },
+      {
+        teamId: awayTeam?._id,
+        teamName: awayTeam?.teamName,
+      },
+    ];
+
+    return {
+      match: lastmatch,
+      url: Url,
+      homeTeam,
+      awayTeam,
+      teams,
+      homeTeamPlayers,
+      awayTeamPlayers,
+    };
   },
 });
 
@@ -311,40 +348,4 @@ export const getOrdinal = (num: number) => {
           : suffixes[0];
 
   return `${num}${suffix}`;
-};
-
-export const fetchUrl = internalQuery({
-  args: { url: v.string() },
-  handler: async (_, args) => {
-    const res = await fetch("http://localhost:3000/api/scraping", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ Url: args.url }),
-    });
-
-    // Check if the response is successful
-    if (!res.ok) {
-      throw new Error("Failed to fetch scraping data");
-    }
-    const result: Scraped = await res.json();
-    // Parse the JSON data and return it
-    return result;
-  },
-});
-
-type Scraped = {
-  winningTeam: string;
-  teamNames: string[];
-  players: ScrapedPlayer[];
-};
-
-type ScrapedPlayer = {
-  id: string;
-  name: string;
-  runs: number;
-  wickets: number;
-  catchCount: number;
-  stumpingsCount: number;
-  runOutsCount: number;
-  possibleNames: string[];
 };

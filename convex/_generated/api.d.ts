@@ -21,6 +21,7 @@ import type * as crons from "../crons.js";
 import type * as groups from "../groups.js";
 import type * as http from "../http.js";
 import type * as matches from "../matches.js";
+import type * as players from "../players.js";
 import type * as teams from "../teams.js";
 import type * as users from "../users.js";
 import type * as userspoints from "../userspoints.js";
@@ -42,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   groups: typeof groups;
   http: typeof http;
   matches: typeof matches;
+  players: typeof players;
   teams: typeof teams;
   users: typeof users;
   userspoints: typeof userspoints;

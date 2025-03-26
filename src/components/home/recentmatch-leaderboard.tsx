@@ -253,7 +253,10 @@ export const MatchLeaderboard = () => {
                                     #{user.rank}
                                   </td>
                                   <td className="p-4">
-                                    <div className="flex items-center gap-3">
+                                    <Link
+                                      href={`/players/${user.userId}`}
+                                      className="flex items-center gap-3"
+                                    >
                                       <Avatar className="h-8 w-8 shrink-0">
                                         <AvatarImage
                                           src={user.image}
@@ -271,7 +274,7 @@ export const MatchLeaderboard = () => {
                                           {user.email}
                                         </span>
                                       </div>
-                                    </div>
+                                    </Link>
                                   </td>
                                   <td className="p-4 text-right font-bold text-sm">
                                     {user.matchPoints.toLocaleString()}

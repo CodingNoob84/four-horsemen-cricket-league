@@ -199,11 +199,11 @@ export function mergeForFinalInsert(
           .trim()
           .toLowerCase()
       );
-      console.log("cleanNames", cleanedNames);
+
       const matchedDbPlayer = allDbPlayers.find((dbPlayer) =>
         cleanedNames.some((name) => dbPlayer.name.toLowerCase().includes(name))
       );
-
+      console.log("cleanNames", cleanedNames, matchedDbPlayer);
       if (!matchedDbPlayer) return null;
 
       return {

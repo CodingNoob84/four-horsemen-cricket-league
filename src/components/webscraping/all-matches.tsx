@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -17,10 +16,11 @@ import {
 import { useMutation, useQuery } from "convex/react";
 import { useState } from "react";
 import { toast } from "sonner"; // ✅ Import toast from sonner
-import { api } from "../../../../../convex/_generated/api";
-import { Id } from "../../../../../convex/_generated/dataModel";
+import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
+import { Textarea } from "../ui/textarea";
 
-export default function BulkDataInsert() {
+export const AllMatches = () => {
   const pastMatches = useQuery(api.matches.pastMatchesSelect);
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false); // ✅ Loading state
@@ -116,38 +116,45 @@ export default function BulkDataInsert() {
   };
 
   return (
-    <div className="space-y-4">
-      {pastMatches && (
-        <Select
-          value={selectedMatchId ?? ""}
-          onValueChange={(value) => setSelectedMatchId(value as Id<"matches">)}
-        >
-          <SelectTrigger className="w-full sm:w-[300px]">
-            <SelectValue placeholder="Select a match" />
-          </SelectTrigger>
-          <SelectContent>
-            {pastMatches.map((match) => (
-              <SelectItem key={match.matchId} value={match.matchId}>
-                <div className="flex flex-row gap-4 items-center justify-between w-full">
-                  <span>{match.match}</span>
-                  <span className="text-muted-foreground text-sm">
-                    {formatLocalDateTime(match.datetimeUtc)}
-                  </span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      )}
-      <Input
-        placeholder="Enter Cricbuzz URL"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <Button onClick={scrape} disabled={loading}>
-        {loading ? "Processing..." : "Submit"}
-      </Button>
-      <Button onClick={handleSubmit}>Final Submit</Button>
+    <div className="p-4">
+      <div className="w-full py-4">
+        {pastMatches && (
+          <Select
+            value={selectedMatchId ?? ""}
+            onValueChange={(value) =>
+              setSelectedMatchId(value as Id<"matches">)
+            }
+          >
+            <SelectTrigger className="w-full sm:w-[300px]">
+              <SelectValue placeholder="Select a match" />
+            </SelectTrigger>
+            <SelectContent>
+              {pastMatches.map((match) => (
+                <SelectItem key={match.matchId} value={match.matchId}>
+                  <div className="flex flex-row gap-4 items-center justify-between w-full">
+                    <span>{match.match}</span>
+                    <span className="text-muted-foreground text-sm">
+                      {formatLocalDateTime(match.datetimeUtc)}
+                    </span>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+      <div className="flex flex-col gap-4">
+        <Textarea
+          placeholder="Enter Cricbuzz URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          className="h-32"
+        />
+        <Button onClick={() => scrape()} disabled={loading}>
+          {loading ? "Processing..." : "Scrape"}
+        </Button>
+        <Button onClick={() => handleSubmit()}>User Points Update</Button>
+      </div>
     </div>
   );
-}
+};

@@ -132,7 +132,8 @@ export const RecentMatch = () => {
               <h3 className="font-medium mb-3">Player Points</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {recentMatch.players.map((player) => (
-                  <div
+                  <Link
+                    href={`/players/${player.playerId}`}
                     key={player.playerId}
                     className="flex justify-between items-center p-2 rounded-md bg-muted/30"
                   >
@@ -154,7 +155,7 @@ export const RecentMatch = () => {
                     <Badge variant="secondary" className="font-bold">
                       {player.playerPoints} pts
                     </Badge>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

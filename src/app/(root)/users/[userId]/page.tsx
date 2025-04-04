@@ -25,6 +25,7 @@ import {
 
 import { cn, formatLocalDateTime } from "@/lib/utils";
 import { AlertCircle, Calendar, Star, Trophy, User, Users } from "lucide-react";
+import Link from "next/link";
 
 const teamColors: Record<string, string> = {
   CSK: "bg-yellow-500",
@@ -261,7 +262,10 @@ export default function UserDetailPage() {
                                       : "bg-card/50"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2">
+                                  <Link
+                                    href={`/players/${player.playerId}`}
+                                    className="flex items-center gap-2"
+                                  >
                                     <Avatar className="w-8 h-8 border">
                                       <AvatarFallback className="text-xs bg-primary/10 text-primary font-medium">
                                         {player.playerName
@@ -275,7 +279,7 @@ export default function UserDetailPage() {
                                         {player.playerName}
                                       </p>
                                     </div>
-                                  </div>
+                                  </Link>
                                   <Badge
                                     variant="outline"
                                     className="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800"

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "kaiPulla",
+    "role": "bot",
+    "email": "kaipulla@bot.com",
+    "image": "https://dummyimage.com/100x100/000/fff&text=kaipulla",
+    "isAutoSetupDone": true,
+    "coins": 500000
+  },
+  {
+    "name": "Style Pandi",
+    "role": "bot",
+    "email": "stylepandi@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Style+Pandi"
+  },
+  {
+    "name": "Naai Sekar",
+    "role": "bot",
+    "email": "naaisekar@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Naai+Sekar"
+  },
+  {
+    "name": "Alert Aarumugam",
+    "role": "bot",
+    "email": "alertaarumugam@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Alert+Aarumugam"
+  },
+  {
+    "name": "Theepuri Thirumugam",
+    "role": "bot",
+    "email": "theepurithirumugam@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Theepuri+Thirumugam"
+  },
+  {
+    "name": "Vedi Muthu",
+    "role": "bot",
+    "email": "vedimuthu@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Vedi+Muthu"
+  },
+  {
+    "name": "Kuzhandhai Velu",
+    "role": "bot",
+    "email": "kuzhandhaivelu@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 50000000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Kuzhandhai+Velu"
+  },
+  {
+    "name": "KeeriKalan",
+    "role": "bot",
+    "email": "keerikalan@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=KeeriKalan"
+  },
+  {
+    "name": "Nesamani",
+    "role": "bot",
+    "email": "nesamani@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Nesamani"
+  },
+  {
+    "name": "Vandu Murugan",
+    "role": "bot",
+    "email": "vandumurugan@bot.com",
+    "isAutoSetupDone": true,
+    "coins": 500000,
+    "image": "https://dummyimage.com/100x100/000/fff&text=Vandu+Murugan"
+  }
+]

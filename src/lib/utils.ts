@@ -167,3 +167,22 @@ export const getOrdinal = (num: number) => {
 
   return `${num}${suffix}`;
 };
+
+const teamColors: Record<string, string> = {
+  CSK: "bg-yellow-500",
+  RCB: "bg-red-600",
+  MI: "bg-blue-600",
+  KKR: "bg-purple-600",
+  SRH: "bg-orange-500",
+  DC: "bg-blue-400",
+  RR: "bg-pink-500",
+  PBKS: "bg-red-500",
+  GT: "bg-teal-500",
+  LSG: "bg-cyan-600",
+};
+
+export const getTeamColor = (teamName: string): string => {
+  // Convert teamName to uppercase and return the corresponding color
+  const upperCaseTeamName = teamName.toUpperCase();
+  return teamColors[upperCaseTeamName] || "bg-gray-500"; // Default to gray if team not found
+};

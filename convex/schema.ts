@@ -12,11 +12,13 @@ const schema = defineSchema({
     phone: v.optional(v.string()),
     phoneVerificationTime: v.optional(v.float64()),
     isAnonymous: v.optional(v.boolean()),
-    role: v.optional(v.union(v.literal("user"), v.literal("admin"))),
+    role: v.optional(
+      v.union(v.literal("user"), v.literal("admin"), v.literal("bot"))
+    ),
     isAutoSetupDone: v.optional(v.boolean()),
+    coins: v.optional(v.number()),
   })
-    .index("email", ["email"])
-    .index("phone", ["phone"])
+    .index("role", ["role"])
     .searchIndex("search", { searchField: "name" }),
   matches: defineTable({
     datetimeUtc: v.string(),
@@ -128,6 +130,39 @@ const schema = defineSchema({
   })
     .index("by_userId", ["userId"]) // Index for fetching requests by user
     .index("by_status", ["status"]),
+
+  bettingMatch: defineTable({
+    matchId: v.id("matches"),
+    userId: v.id("users"),
+    team: v.id("teams"),
+    bet: v.number(),
+    earning: v.number(),
+  })
+    .index("userId", ["userId"])
+    .index("matchId", ["matchId"])
+    .index("matchId_userId", ["userId", "matchId"]),
+  bettingTeam: defineTable({
+    matchId: v.id("matches"),
+    teamId: v.id("teams"),
+    totalCoins: v.number(),
+    usersCount: v.number(),
+  }).index("matchId", ["matchId"]),
+  bettingUserHistory: defineTable({
+    matchId: v.optional(v.id("matches")),
+    userId: v.id("users"),
+    type: v.union(
+      v.literal("initial"),
+      v.literal("give"),
+      v.literal("bet"),
+      v.literal("earn")
+    ),
+    coins: v.number(),
+    betId: v.optional(v.id("bettingMatch")),
+    message: v.optional(v.string()),
+  })
+    .index("userId", ["userId"])
+    .index("matchId", ["matchId"])
+    .index("matchId_userId", ["userId", "matchId"]),
 });
 
 export default schema;

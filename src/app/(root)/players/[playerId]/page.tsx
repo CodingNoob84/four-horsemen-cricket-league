@@ -55,7 +55,7 @@ export default function PlayerDetailPage() {
   }
   return (
     <div className="container mx-auto py-8 px-4">
-      <Breadcrumbs title="User History" isAdmin={false} backLink="/users" />
+      <Breadcrumbs title="Player History" isAdmin={false} backLink="/" />
       {/* User Profile Section */}
       {playerDetails && (
         <>

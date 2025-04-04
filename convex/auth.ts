@@ -12,6 +12,7 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
       await ctx.db.patch(args.userId, {
         role: "user",
         isAutoSetupDone: false,
+        coins: 5000,
       });
     },
   },

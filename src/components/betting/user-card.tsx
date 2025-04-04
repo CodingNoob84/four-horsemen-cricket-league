@@ -1,11 +1,11 @@
 import { Avatar } from "@radix-ui/react-avatar";
 import { useQuery } from "convex/react";
-import { Loader, Mail, Trophy } from "lucide-react";
+import { Coins, Loader, Mail } from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const UserCard = () => {
-  const user = useQuery(api.users.userwithTotalPoints);
+  const user = useQuery(api.betting.userwithCoins);
 
   if (user == undefined) {
     return (
@@ -38,22 +38,11 @@ export const UserCard = () => {
             </div>
 
             <div className="flex flex-row gap-2">
-              <div className="border rounded-md bg-primary/5 flex flex-col gap-2 p-2">
-                <p className="text-sm font-medium">Total Points</p>
-
+              <div className="border w-full rounded-md bg-primary/5 flex flex-col gap-2 p-2">
+                <p className="text-sm font-medium">Total Coins</p>
                 <div className="flex flex-row items-center gap-2">
-                  <Trophy className="h-6 w-6 text-primary" />
-                  <p className="text-2xl font-bold">
-                    {user.totalOverallPoints ?? 0}
-                  </p>
-                </div>
-              </div>
-              <div className="border rounded-md bg-primary/5 flex flex-col gap-2 p-2">
-                <p className="text-sm font-medium">Matches</p>
-
-                <div className="flex flex-row items-center gap-2">
-                  <Trophy className="h-6 w-6 text-primary" />
-                  <p className="text-2xl font-bold">{user.matches ?? 0}</p>
+                  <Coins className="h-6 w-6 text-yellow-500" />
+                  <p className="text-2xl font-bold">{user.coins || 0}</p>
                 </div>
               </div>
             </div>
